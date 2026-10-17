@@ -528,7 +528,7 @@ font-size: 0.85em;
 <div class="info-card">
 <div class="info-row">
 <span class="info-label">角色名称</span>
-<span class="info-value">{{user}}</span>
+<span class="info-value" id="role-name">{{user}}</span>
 </div>
 <div class="info-row">
 <span class="info-label">角色定位</span>
@@ -562,21 +562,21 @@ style="margin-top: 8px; font-size: 0.8em"
 <div class="section-title">◆ 点击—开启故事</div>
 <div class="opening-section">
 <div class="opening-grid">
-<div class="opening-card" onclick="switchToOpening(1)">
+<div class="opening-card" onclick="switchToOpening(1, event)">
 <div class="opening-badge">等级：0</div>
 <div class="opening-title">初入论坛</div>
 <div class="opening-desc">
 你刚刚注册了暗香论坛账号，对这个圈子充满好奇。作为0级新人，你需要从零开始积累经验，学习分寸与洞察，逐步成长为一名让人安心也让人心动的女主。
 </div>
 </div>
-<div class="opening-card" onclick="switchToOpening(2)">
+<div class="opening-card" onclick="switchToOpening(2, event)">
 <div class="opening-badge">等级：20</div>
 <div class="opening-title">新人上路</div>
 <div class="opening-desc">
 你当前的等级是20级，刚刚在暗香论坛崭露头角。凭借分寸感与洞察力，你已经收获了十几条留香回应，开始有人主动私信邀约。
 </div>
 </div>
-<div class="opening-card" onclick="switchToOpening(3)">
+<div class="opening-card" onclick="switchToOpening(3, event)">
 <div class="opening-badge">等级：100</div>
 <div class="opening-title">神话降临</div>
 <div class="opening-desc">
@@ -595,38 +595,58 @@ style="margin-top: 8px; font-size: 0.8em"
 </div>
 </div>
 <script>
-function openDiscordWithConfirm() {
-if (confirm("即将跳转到Discord服务器，是否继续？")) {
-window.open("https://discord.gg/x3aKHgfE3u", "_blank");
-}
-}
-async function switchToOpening(swipeId) {
-const cards = document.querySelectorAll(".opening-card");
-const clickedCard = event.currentTarget;
-if (clickedCard) {
-clickedCard.style.opacity = "0.6";
-clickedCard.style.pointerEvents = "none";
-}
-try {
-const messages = await getChatMessages("0", { include_swipe: true });
-if (messages && messages[0].swipes && messages[0].swipes[swipeId]) {
-await setChatMessage(messages[0].swipes[swipeId], 0, {
-swipe_id: swipeId,
-refresh: "display_and_render_current",
+// 替换 {{user}} 占位符
+document.addEventListener('DOMContentLoaded', function() {
+  try {
+    const roleNameEl = document.getElementById('role-name');
+    if (roleNameEl && roleNameEl.textContent.trim() === '{{user}}') {
+      if (typeof getContext === 'function') {
+        const context = getContext();
+        roleNameEl.textContent = context.name1 || '女主';
+      } else {
+        roleNameEl.textContent = '女主';
+      }
+    }
+  } catch (e) {
+    console.warn('替换用户名失败:', e);
+  }
 });
-} else {
-throw new Error(
-`开场白 ${swipeId} 未找到，请确保已按顺序添加所有开场白。`
-);
+
+function openDiscordWithConfirm() {
+  if (confirm("即将跳转到Discord服务器，是否继续？")) {
+    window.open("https://discord.gg/x3aKHgfE3u", "_blank");
+  }
 }
-} catch (error) {
-console.error("切换开场白失败:", error);
-alert(`切换失败: ${error.message}`);
-if (clickedCard) {
-clickedCard.style.opacity = "1";
-clickedCard.style.pointerEvents = "auto";
-}
-}
+
+async function switchToOpening(swipeId, event) {
+  const clickedCard = event && event.currentTarget ? event.currentTarget : null;
+  if (clickedCard) {
+    clickedCard.style.opacity = "0.6";
+    clickedCard.style.pointerEvents = "none";
+  }
+  try {
+    const messageId = typeof getCurrentMessageId === 'function'
+      ? getCurrentMessageId()
+      : "0";
+    const messages = await getChatMessages(messageId, { include_swipe: true });
+    if (messages && messages[0] && messages[0].swipes && messages[0].swipes[swipeId]) {
+      await setChatMessage(messages[0].swipes[swipeId], messageId, {
+        swipe_id: swipeId,
+        refresh: "display_and_render_current",
+      });
+    } else {
+      throw new Error(
+        `开场白 ${swipeId} 未找到，请确保已按顺序添加所有开场白。`
+      );
+    }
+  } catch (error) {
+    console.error("切换开场白失败:", error);
+    alert(`切换失败: ${error.message}`);
+    if (clickedCard) {
+      clickedCard.style.opacity = "1";
+      clickedCard.style.pointerEvents = "auto";
+    }
+  }
 }
 </script>
 </body>
