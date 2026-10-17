@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>直播间 - 暗香论坛</title>
+<link rel="stylesheet" href="https://fontsapi.zeoseven.com/292/main/result.css" />
+</head>
+<body>
+<style>
+:root {
+--dark-red: #c92a2a; --blood-red: #e03131; --light-red: #ff6b6b;
+--dark-gray: #1a1a1a; --gray: #2a2a2a; --light-gray: #3a3a3a;
+--text-main: #e0e0e0; --text-dim: #999; --text-dimmer: #666; --gold: #ffd700;
+--border: rgba(220, 20, 60, 0.2); --hover-bg: rgba(220, 20, 60, 0.08);
+--base-font-size: 14px;
+}
+[data-theme='light'] {
+--dark-gray: #f5f5f5; --gray: #ececec; --light-gray: #e0e0e0;
+--text-main: #2a2a2a; --text-dim: #666; --text-dimmer: #999; --gold: #d97706;
+--border: rgba(220, 20, 60, 0.15); --hover-bg: rgba(220, 20, 60, 0.05);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body { font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.room { position: relative; width: 100%; max-width: 860px; margin: 0 auto; background: var(--dark-gray); font-size: var(--base-font-size); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.room.font-medium { --base-font-size: 15px; }
+.room.font-large { --base-font-size: 17px; }
+.room.font-xlarge { --base-font-size: 19px; }
+.btn { background: var(--gray); color: var(--text-main); border: 1px solid var(--border); border-radius: 8px; padding: 6px 12px; cursor: pointer; font-size: 0.9em; font-family: inherit; }
+.btn:hover { background: var(--hover-bg); border-color: var(--blood-red); }
+.btn.primary { background: linear-gradient(135deg, var(--dark-red), var(--blood-red)); color: #fff; border: none; }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.top { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: linear-gradient(135deg, rgba(201, 42, 42, 0.25), rgba(26, 26, 26, 0)); border-bottom: 1px solid var(--border); }
+.avatar { flex: none; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; }
+.host { flex: 1; min-width: 0; }
+.host-name { font-weight: 700; color: var(--light-red); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.host-lv { margin-left: 6px; font-size: 0.75em; background: var(--blood-red); color: #fff; border-radius: 4px; padding: 0 6px; }
+.room-title { font-size: 0.85em; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.stats { display: flex; gap: 14px; padding: 6px 14px; background: var(--gray); color: var(--text-dim); font-size: 0.82em; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+.live-dot { color: var(--blood-red); font-weight: 700; }
+.userbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; padding: 6px 14px; font-size: 0.82em; border-bottom: 1px solid var(--border); }
+.chip { background: var(--gray); border: 1px solid var(--border); border-radius: 999px; padding: 1px 12px; color: var(--text-dim); }
+.chip b { color: var(--gold); }
+.vip-badge { font-size: 0.72em; border-radius: 4px; padding: 0 6px; color: #fff; margin-left: 4px; }
+.vip-浅尝 { background: #868e96; } .vip-常客 { background: #7048e8; } .vip-知音 { background: #d6336c; }
+.announce { margin: 10px 14px 0; padding: 8px 12px; background: rgba(255, 215, 0, 0.08); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 8px; font-size: 0.85em; color: var(--text-dim); }
+.announce b { color: var(--gold); }
+.stage { position: relative; margin: 10px 14px 0; height: 130px; border-radius: 10px; background: linear-gradient(135deg, #2b1020, #12121a); border: 1px solid var(--border); overflow: hidden; }
+.stage-label { position: absolute; left: 10px; top: 6px; font-size: 0.72em; color: rgba(255, 255, 255, 0.45); }
+.danmaku { position: absolute; left: 100%; white-space: nowrap; color: #fff; font-size: 0.95em; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); animation: fly linear forwards; pointer-events: none; }
+@keyframes fly { from { transform: translateX(0); } to { transform: translateX(calc(-100vw - 100%)); } }
+.gallery { display: flex; gap: 8px; padding: 10px 14px 0; overflow-x: auto; }
+.gallery img { height: 120px; border-radius: 8px; border: 1px solid var(--border); cursor: pointer; }
+.section-title { padding: 12px 14px 4px; font-size: 0.95em; font-weight: 700; color: var(--light-red); }
+.desc { margin: 0 14px; padding: 10px 12px; background: var(--gray); border: 1px solid var(--border); border-radius: 8px; font-size: 0.92em; line-height: 1.85; white-space: pre-wrap; }
+.vips { display: flex; gap: 8px; padding: 6px 14px; overflow-x: auto; }
+.vip-item { flex: none; display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 0.72em; color: var(--text-dim); max-width: 64px; }
+.vip-item .avatar { width: 32px; height: 32px; font-size: 0.9em; }
+.vip-item span { max-width: 64px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chat { margin: 0 14px; max-height: 340px; overflow-y: auto; border: 1px solid var(--border); border-radius: 8px; background: var(--gray); padding: 6px 10px; }
+.msg { padding: 3px 0; font-size: 0.9em; word-break: break-word; }
+.msg .name { color: var(--light-red); font-weight: 600; }
+.msg .lv { font-size: 0.7em; background: var(--light-gray); color: var(--text-dim); border-radius: 3px; padding: 0 5px; margin: 0 4px; }
+.msg .tag-hero { font-size: 0.7em; background: #845ef7; color: #fff; border-radius: 3px; padding: 0 5px; margin-right: 4px; }
+.msg .tag-host { font-size: 0.7em; background: var(--blood-red); color: #fff; border-radius: 3px; padding: 0 5px; margin-right: 4px; }
+.msg.host { background: rgba(224, 49, 49, 0.1); border-radius: 6px; padding: 3px 6px; }
+.msg.me .name { color: var(--gold); }
+.msg.sys { text-align: center; color: var(--gold); font-size: 0.82em; }
+.controls { padding: 10px 14px 14px; }
+.send-row { display: flex; gap: 8px; }
+.send-row input { flex: 1; background: var(--gray); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; color: var(--text-main); font-family: inherit; font-size: 1em; outline: none; }
+.send-row input:focus { border-color: var(--blood-red); }
+.tool-row { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.notice { padding: 8px 14px 12px; color: var(--text-dimmer); font-size: 0.78em; border-top: 1px solid var(--border); }
+.modal-mask { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); display: none; align-items: center; justify-content: center; z-index: 50; padding: 12px; }
+.modal-mask.show { display: flex; }
+.modal { width: 100%; max-width: 520px; max-height: 86vh; overflow-y: auto; background: var(--dark-gray); border: 1px solid var(--border); border-radius: 12px; padding: 14px; color: var(--text-main); }
+.modal h3 { color: var(--light-red); margin-bottom: 8px; font-size: 1.05em; }
+.modal .hint { font-size: 0.8em; color: var(--text-dimmer); margin-bottom: 8px; }
+.tier-tabs { display: flex; gap: 6px; overflow-x: auto; margin-bottom: 8px; }
+.tier-tab { flex: none; background: var(--gray); color: var(--text-dim); border: 1px solid var(--border); border-radius: 999px; padding: 3px 12px; cursor: pointer; font-size: 0.82em; font-family: inherit; }
+.tier-tab.active { background: var(--blood-red); color: #fff; border-color: var(--blood-red); }
+.gift-item { display: flex; align-items: center; gap: 8px; padding: 6px 4px; border-bottom: 1px dashed var(--border); font-size: 0.88em; }
+.gift-item .gname { flex: 1; }
+.gift-item .gprice { color: var(--gold); white-space: nowrap; }
+.plan { border: 1px solid var(--border); border-radius: 10px; padding: 10px; margin-bottom: 8px; background: var(--gray); }
+.plan b { color: var(--gold); }
+.modal textarea { width: 100%; min-height: 80px; background: var(--gray); border: 1px solid var(--border); border-radius: 8px; color: var(--text-main); padding: 8px; font-family: inherit; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 10px; }
+.toast { position: fixed; left: 50%; bottom: 40px; transform: translateX(-50%); background: rgba(0, 0, 0, 0.85); color: #fff; padding: 8px 18px; border-radius: 999px; font-size: 0.9em; z-index: 80; opacity: 0; transition: opacity 0.25s; pointer-events: none; }
+.toast.show { opacity: 1; }
+.loading { padding: 40px 16px; text-align: center; color: var(--text-dim); }
+</style>
+<div class="room" id="room"><div class="loading">界面加载失败,请重roll聊天试试...</div></div>
+<div class="modal-mask" id="modal-mask" onclick="if(event.target===this)closeModal()"><div class="modal" id="modal"></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const IMAGE_BASE_URL = 'https://img.emolsp.online/CG/wife_forum/';
+const chat_message = getChatMessages(getCurrentMessageId())[0];
+const match = chat_message.message.match(/<live_room>([\s\S]*?)<\/live_room>/);
+const liveRoomXML = match ? match[0] : '<live_room></live_room>';
+
+/* 互动邀约清单(与世界书<互动和礼物清单>一致;邀约由主播自愿决定是否回应,婉拒则积分原路退还) */
+const GIFT_TIERS = [
+{ name: '基础暖场', items: [['男性对着镜头淡淡一笑',1],['男性单手松开领口第一颗扣子',5],['男性对着麦克风低声清嗓',10],['男性挑眉看向镜头',20],['男性卷起袖口露出小臂和腕表',30],['男性舔了一下嘴唇',50],['男性站起身转身展示宽阔的后背',66],['男性单手扯松领带',88],['男性侧头展示喉结和下颌线',100],['特写男性锁骨与脖颈',128],['男性隔着衬衫按住自己的腹肌',168],['男性脱下西装外套',233],['男性解开衬衫三颗扣子',300],['男性撩起衣摆露出人鱼线',499]] },
+{ name: '有主之温', items: [['男性转动无名指上的婚戒',500],['男性低头回复伴侣的晚安消息',600],['男性提起伴侣做的早餐笑得温柔',700],['男性对着镜头说"我很爱她"并停顿片刻',800],['男性展示婚戒并十指交握',888],['男性让女主帮忙整理领带',999],['男性把婚戒摘下放在桌角',1111],['男性喉结滚动并移开视线',1200],['男性对镜头说出"今晚我只想对你坦白"',1314],['男性被问到会不会心虚时沉默三秒',1400],['男性让女主帮忙解开袖扣',1450],['男性换上女主挑选的丝质睡袍',1500]] },
+{ name: '女主介入', items: [['男性接受女主的视频邀请',1600],['男性给女主发一张私密照',1800],['男性蒙上眼睛猜女主在做什么',2000],['允许女主隔着衬衫抚摸他的胸口',2200],['女主亲吻男性的脖子',2400],['女主拉住领带把男性拉近',2500],['女主解开男性的皮带扣',2666],['男性架设镜头并保持不露脸',2800],['女主坐在男性大腿上',2900],['女主抚摸男性大腿内侧',3000]] },
+{ name: '轻度撩拨', items: [['男性安静地坐在床边等待指令',3200],['女主笑着说他比想象中更紧张',3500],['女主用脚尖轻点男性的膝盖',4000],['女主隔着内裤抚摸男性的勃起',4500],['男性手指插入女主小穴特写',5000],['男性为女主涂抹润滑',5500],['男性舔舐女主的乳头',6000],['男性给女主口交并抬眼看她',6500],['女主使用骑乘位并让男性扶着腰',7000],['女主侧躺让男性从背后进入',7500],['男性在女主注视下自慰',7800],['男性喘着气说"别停"',8000]] },
+{ name: '深度沉沦', items: [['69式互相口交',8500],['男性压在女主上方正面进入',9500],['女主一边与男性接吻一边被他进入',10000],['女主跨坐并主导节奏',11000],['男性喊着女主的名字射出来',12000],['事后两人一起整理汗湿的床单',13000],['男性双手被丝带轻缚由女主主导(须事先约定安全词并可随时解开)',15000],['女主让男性看着镜子里自己的反应',16000],['男性摘下面具直视镜头',17000],['男性在女主耳边念出自己想要的话',18000],['男性在伴侣的照片前被女主亲吻(须经他本人事先同意)',20000]] },
+{ name: '暗香极夜', items: [['男性眼眶泛红却笑着承认今晚想做坏人',22000],['女主在男性胸口留下吻痕',26000],['男性与女主交换了真实的名字',30000],['一夜长谈到天亮',35000],['两人同时到达高潮并紧紧拥抱',40000],['休息后的第二轮亲密',45000],['男性说"我该回去了"并被女主拥抱挽留一分钟',50000]] },
+{ name: '虚拟的情趣礼物', virtual: true, items: [['超薄避孕套',10],['男士古龙水',50],['丝质领带',100],['黑色真丝睡袍',200],['白色衬衫',500],['精致腕表',800],['男士情趣内裤',1200],['轻度束缚丝带套装',1800],['男士按摩油礼盒',3000],['私人汤池体验券',5000]] },
+];
+/* 订阅等级:免费额度可用的最高档位(下标)、每日免费次数。积分价格为前端展示用,可按需调整 */
+const SUBSCRIBE_PLANS = [
+{ tier: '浅尝', price: 3000, daily: 3, maxIdx: 0, views: [], pm: false, perk: '每24小时3次免费「基础暖场」邀约' },
+{ tier: '常客', price: 8000, daily: 5, maxIdx: 2, views: ['第一人称', '第三人称'], pm: true, perk: '每24小时5次免费「女主介入」及以下邀约;可请求第一/第三人称视角;可私信主播' },
+{ tier: '知音', price: 20000, daily: 8, maxIdx: 4, views: ['特写', '全景', '第一人称', '第三人称'], pm: true, perk: '每24小时8次免费「深度沉沦」及以下邀约;可请求全部视角;可私信主播' },
+];
+let S = null;
+let danmakuOn = true;
+let danmakuTimer = null;
+let danmakuIdx = 0;
+let activeTier = 0;
+
+function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'); }
+function hash(str) { let h = 0; for (let i = 0; i < str.length; i++) { h = (h * 31 + str.charCodeAt(i)) | 0; } return Math.abs(h); }
+function avatarHtml(name, seed) { const hue = hash(seed || name) % 360; return `<div class="avatar" style="background:hsl(${hue},55%,42%)">${esc((name || '?').charAt(0))}</div>`; }
+function fmt(n) { const num = parseInt(String(n).replace(/[^\d]/g, ''), 10); if (isNaN(num)) return String(n); if (num >= 10000) return (num / 10000).toFixed(1) + '万'; return String(num); }
+function field(xml, name) { const m = xml.match(new RegExp('\\[' + name + '\\|([^\\]]*)\\]')); return m ? m[1].trim() : ''; }
+function block(xml, tag) { const m = xml.match(new RegExp('<' + tag + '>([\\s\\S]*?)</' + tag + '>', 'i')); return m ? m[1].trim() : ''; }
+
+function parseLiveRoomXML(xml) {
+console.log('========== 直播间数据解析开始 ==========');
+const d = {
+host: field(xml, '主播昵称'), title: field(xml, '直播标题'), viewers: field(xml, '在线观众'), likes: field(xml, '点赞数'),
+hostLevel: field(xml, '主播等级'), duration: field(xml, '直播时长'),
+points: parseInt(field(xml, '用户积分').replace(/[^\d]/g, ''), 10) || 0,
+level: field(xml, '用户等级'), vip: field(xml, '用户贵宾状态') || '无',
+free: parseInt(field(xml, '免费礼物剩余').replace(/[^\d]/g, ''), 10) || 0,
+images: [], messages: [], danmaku: [], vips: [],
+announcement: block(xml, 'announcement'), description: block(xml, 'live_description'),
+};
+const g = block(xml, 'image_gallery'); const gr = /\[图片\|([^\]]+)\]/g; let m;
+while ((m = gr.exec(g)) !== null) { const p = m[1].trim(); if (p) d.images.push(/^https?:/.test(p) ? p : IMAGE_BASE_URL + p); }
+const c = block(xml, 'chat_messages'); const cr = /\[消息\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\|]*)\|([^\]]*)\]/g;
+while ((m = cr.exec(c)) !== null) { d.messages.push({ name: m[1].trim(), level: m[2].trim(), type: m[3].trim(), vip: m[4].trim(), text: m[5].trim() }); }
+const dm = block(xml, 'danmaku_list'); const dr = /\[弹幕\|([^\]]+)\]/g;
+while ((m = dr.exec(dm)) !== null) { d.danmaku.push(m[1].trim()); }
+const v = block(xml, 'vip_list'); const vr = /\[包月贵宾\|([^\|]+)\|([^\|]+)\|([^\]]+)\]/g;
+while ((m = vr.exec(v)) !== null) { d.vips.push({ name: m[1].trim(), tier: m[2].trim(), seed: m[3].trim() }); }
+console.log('解析完成 - 消息:', d.messages.length, '弹幕:', d.danmaku.length, '贵宾:', d.vips.length);
+return d;
+}
+function planOf(tier) { return SUBSCRIBE_PLANS.find((p) => p.tier === tier) || null; }
+function vipBadge(tier) { return tier && tier !== '无' ? `<span class="vip-badge vip-${esc(tier)}">${esc(tier)}</span>` : ''; }
+
+function renderMessages() {
+return S.messages.map((m) => {
+if (m.type === '系统' || m.name === '系统' || m.name === '系统提示') return `<div class="msg sys">${esc(m.text)}</div>`;
+const isHost = m.name === S.host;
+const isMe = m.name === '我';
+const heroTag = m.type === '女主' ? '<span class="tag-hero">女主</span>' : '';
+const hostTag = isHost ? '<span class="tag-host">主播</span>' : '';
+return `<div class="msg ${isHost ? 'host' : ''} ${isMe ? 'me' : ''}">${hostTag}${heroTag}<span class="name">${esc(m.name)}</span><span class="lv">Lv.${esc(m.level)}</span>${vipBadge(m.vip)}<span>:${esc(m.text)}</span></div>`;
+}).join('');
+}
+function renderRoom() {
+const root = document.getElementById('room');
+const gallery = S.images.length ? `<div class="gallery">${S.images.map((u) => `<img src="${esc(u)}" loading="lazy" onerror="this.style.display='none'" />`).join('')}</div>` : '';
+const vips = S.vips.length ? `<div class="section-title">💎 包月贵宾</div><div class="vips">${S.vips.map((v) => `<div class="vip-item">${avatarHtml(v.name, v.seed)}<span>${esc(v.name)}</span>${vipBadge(v.tier)}</div>`).join('')}</div>` : '';
+root.innerHTML = `
+<div class="top">
+<button class="btn" onclick="goList()">← 列表</button>
+${avatarHtml(S.host, S.host)}
+<div class="host"><div class="host-name">${esc(S.host)}<span class="host-lv">Lv.${esc(S.hostLevel || '-')}</span></div><div class="room-title">${esc(S.title)}</div></div>
+<button class="btn" onclick="toggleFontSize()"><span id="font-size-icon">A</span></button>
+<button class="btn" onclick="toggleTheme()"><span id="theme-icon">🌙</span></button>
+</div>
+<div class="stats"><span class="live-dot">● LIVE</span><span>👁 ${fmt(S.viewers)}</span><span>❤ ${fmt(S.likes)}</span><span>⏱ ${esc(S.duration)}</span></div>
+<div class="userbar">
+<span class="chip">女主等级 <b>Lv.${esc(S.level || '-')}</b></span>
+<span class="chip">积分 <b id="points">${S.points}</b></span>
+<span class="chip">贵宾 <b>${esc(S.vip)}</b>${vipBadge(S.vip)}</span>
+<span class="chip">免费邀约 <b id="free">${S.free}</b></span>
+</div>
+${S.announcement ? `<div class="announce"><b>📢 公告</b> ${esc(S.announcement)}</div>` : ''}
+<div class="stage" id="stage"><div class="stage-label">弹幕</div></div>
+${gallery}
+<div class="section-title">🎬 直播实况</div>
+<div class="desc">${esc(S.description) || '主播正在准备中……'}</div>
+${vips}
+<div class="section-title">💬 实时聊天</div>
+<div class="chat" id="chat">${renderMessages()}</div>
+<div class="controls">
+<div class="send-row"><input id="dm-input" maxlength="60" placeholder="发条友善的弹幕吧…" onkeydown="if(event.key==='Enter')sendDanmaku()" /><button class="btn primary" onclick="sendDanmaku()">发送</button></div>
+<div class="tool-row">
+<button class="btn" onclick="openGift()">🎁 邀约 / 礼物</button>
+<button class="btn" onclick="openSubscribe()">💎 订阅</button>
+<button class="btn" onclick="openView()">📹 视角</button>
+<button class="btn" onclick="openPM()">✉ 私信主播</button>
+<button class="btn" id="dm-toggle" onclick="toggleDanmaku()">弹幕:开</button>
+</div>
+</div>
+<div class="notice">所有出镜人物均为成年人。邀约由主播自愿决定是否回应,婉拒则积分原路退还;不得录屏、截图外传,不得追问主播身份或联系方式。</div>`;
+const chat = document.getElementById('chat'); chat.scrollTop = chat.scrollHeight;
+startDanmaku();
+}
+/* ---------- 弹幕 ---------- */
+function spawnDanmaku(text) {
+const stage = document.getElementById('stage'); if (!stage || !danmakuOn) return;
+if (stage.querySelectorAll('.danmaku').length > 8) return;
+const el = document.createElement('div'); el.className = 'danmaku'; el.textContent = text;
+el.style.top = (22 + Math.floor(Math.random() * 4) * 26) + 'px';
+el.style.animationDuration = (9 + Math.random() * 6) + 's';
+el.addEventListener('animationend', () => el.remove());
+stage.appendChild(el);
+}
+function startDanmaku() {
+if (danmakuTimer) clearInterval(danmakuTimer);
+if (!S.danmaku.length) return;
+danmakuTimer = setInterval(() => { spawnDanmaku(S.danmaku[danmakuIdx % S.danmaku.length]); danmakuIdx++; }, 1100);
+}
+function toggleDanmaku() {
+danmakuOn = !danmakuOn;
+document.getElementById('dm-toggle').textContent = '弹幕:' + (danmakuOn ? '开' : '关');
+if (!danmakuOn) document.querySelectorAll('.danmaku').forEach((e) => e.remove());
+}
+/* ---------- 指令 ---------- */
+function sendCmd(cmd) { if (typeof triggerSlash === 'function') { triggerSlash(cmd); } }
+function toast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 1800); }
+function goList() { sendCmd('/send 查看直播列表 | /trigger'); }
+function sendDanmaku() {
+const input = document.getElementById('dm-input'); const text = input.value.trim(); if (!text) return;
+spawnDanmaku(text); input.value = '';
+sendCmd(`/send 发送弹幕:${text} | /trigger`);
+}
+/* ---------- 弹窗 ---------- */
+function openModal(html) { document.getElementById('modal').innerHTML = html; document.getElementById('modal-mask').classList.add('show'); }
+function closeModal() { document.getElementById('modal-mask').classList.remove('show'); }
+function freeMax() { const p = planOf(S.vip); return p ? p.maxIdx : -1; }
+function giftList() {
+const tier = GIFT_TIERS[activeTier];
+const freeOk = !tier.virtual && S.free > 0 && activeTier <= freeMax();
+return tier.items.map((it, i) => `<div class="gift-item"><div class="gname">${esc(it[0])}</div><div class="gprice">${it[1]}积分</div><button class="btn ${freeOk ? 'primary' : ''}" onclick="giveGift(${activeTier},${i},${freeOk})">${freeOk ? '免费' : '邀约'}</button></div>`).join('');
+}
+function openGift() {
+const tabs = GIFT_TIERS.map((t, i) => `<button class="tier-tab ${i === activeTier ? 'active' : ''}" onclick="switchTier(${i})">${esc(t.name)}</button>`).join('');
+openModal(`<h3>🎁 邀约 / 礼物</h3><div class="hint">邀约由主播自愿决定是否回应,婉拒则积分原路退还。当前积分 ${S.points},免费邀约剩余 ${S.free}。</div><div class="tier-tabs">${tabs}</div><div id="gift-list">${giftList()}</div><div class="modal-actions"><button class="btn" onclick="closeModal()">关闭</button></div>`);
+}
+function switchTier(i) { activeTier = i; openGift(); }
+function giveGift(ti, ii, free) {
+const tier = GIFT_TIERS[ti]; const it = tier.items[ii];
+if (free) {
+sendCmd(`/send 使用免费额度赠送礼物:${it[0]} | /trigger`);
+S.free = Math.max(0, S.free - 1); const f = document.getElementById('free'); if (f) f.textContent = S.free;
+closeModal(); toast('已发出免费邀约'); return;
+}
+if (it[1] > S.points) { toast('积分不足'); return; }
+const cmd = tier.virtual ? `赠送虚拟的情趣礼物:${it[0]}(${it[1]}积分)` : `赠送礼物:${it[0]}(${it[1]}积分)`;
+sendCmd(`/send ${cmd} | /trigger`);
+S.points -= it[1]; const p = document.getElementById('points'); if (p) p.textContent = S.points;
+closeModal(); toast('邀约已发出');
+}
+function openSubscribe() {
+const html = SUBSCRIBE_PLANS.map((p) => `<div class="plan"><b>${p.tier}</b> · ${p.price}积分/30天<div class="hint" style="margin:4px 0">${esc(p.perk)}</div><button class="btn primary" ${S.vip === p.tier ? 'disabled' : ''} onclick="subscribe('${p.tier}')">${S.vip === p.tier ? '已订阅' : '订阅'}</button></div>`).join('');
+openModal(`<h3>💎 包月订阅</h3><div class="hint">订阅为心意支持,不改变主播的自愿原则。积分只用于论坛内解锁,不可兑现。</div>${html}<div class="modal-actions"><button class="btn" onclick="closeModal()">关闭</button></div>`);
+}
+function subscribe(tier) {
+const p = planOf(tier); if (p.price > S.points) { toast('积分不足'); return; }
+sendCmd(`/send 购买月度订阅:${tier} | /trigger`); closeModal(); toast('已发出订阅请求');
+}
+function openView() {
+const p = planOf(S.vip);
+if (!p || !p.views.length) { openModal(`<h3>📹 视角</h3><div class="hint">切换视角需要「常客」或「知音」订阅。</div><div class="modal-actions"><button class="btn" onclick="closeModal()">关闭</button></div>`); return; }
+const btns = p.views.map((v) => `<button class="btn" style="margin:4px" onclick="requestView('${v}')">${v}</button>`).join('');
+openModal(`<h3>📹 请求切换视角</h3><div class="hint">主播可自愿决定是否切换。</div><div>${btns}</div><div class="modal-actions"><button class="btn" onclick="closeModal()">关闭</button></div>`);
+}
+function requestView(v) { sendCmd(`/send 请求切换视角:${v} | /trigger`); closeModal(); toast('已发出视角请求'); }
+function openPM() {
+const p = planOf(S.vip);
+if (!p || !p.pm) { openModal(`<h3>✉ 私信主播</h3><div class="hint">私信主播需要「常客」或「知音」订阅。</div><div class="modal-actions"><button class="btn" onclick="closeModal()">关闭</button></div>`); return; }
+openModal(`<h3>✉ 私信主播</h3><div class="hint">请保持友善与尊重,不要追问身份或联系方式。</div><textarea id="pm-text" maxlength="200" placeholder="想对他说点什么…"></textarea><div class="modal-actions"><button class="btn" onclick="closeModal()">取消</button><button class="btn primary" onclick="sendPM()">发送</button></div>`);
+}
+function sendPM() {
+const t = document.getElementById('pm-text').value.trim(); if (!t) return;
+sendCmd(`/send 向主播发私信:${t} | /trigger`); closeModal(); toast('私信已发送');
+}
+/* ---------- 主题与字号 ---------- */
+function toggleTheme() {
+const body = document.body; const icon = document.getElementById('theme-icon');
+if (body.getAttribute('data-theme') === 'light') { body.removeAttribute('data-theme'); icon.textContent = '🌙'; localStorage.setItem('forum-theme', 'dark'); }
+else { body.setAttribute('data-theme', 'light'); icon.textContent = '☀️'; localStorage.setItem('forum-theme', 'light'); }
+}
+function toggleFontSize() {
+const sizes = ['small', 'medium', 'large', 'xlarge']; const icons = ['A', 'A+', 'A++', 'A+++'];
+const room = document.getElementById('room'); const cur = localStorage.getItem('forum-font-size') || 'small';
+const next = sizes[(sizes.indexOf(cur) + 1) % sizes.length];
+room.classList.remove('font-medium', 'font-large', 'font-xlarge'); if (next !== 'small') room.classList.add('font-' + next);
+document.getElementById('font-size-icon').textContent = icons[sizes.indexOf(next)]; localStorage.setItem('forum-font-size', next);
+}
+function syncFromStorage(e) {
+const icon = document.getElementById('theme-icon');
+if (e.key === 'forum-theme') { if (e.newValue === 'light') { document.body.setAttribute('data-theme', 'light'); if (icon) icon.textContent = '☀️'; } else { document.body.removeAttribute('data-theme'); if (icon) icon.textContent = '🌙'; } }
+if (e.key === 'forum-font-size') {
+const room = document.getElementById('room'); const sizes = ['small', 'medium', 'large', 'xlarge']; const icons = ['A', 'A+', 'A++', 'A+++'];
+room.classList.remove('font-medium', 'font-large', 'font-xlarge'); if (e.newValue && e.newValue !== 'small') room.classList.add('font-' + e.newValue);
+const fi = document.getElementById('font-size-icon'); if (fi) fi.textContent = icons[sizes.indexOf(e.newValue || 'small')];
+}
+}
+window.addEventListener('storage', syncFromStorage);
+setTimeout(function () {
+try {
+S = parseLiveRoomXML(liveRoomXML);
+renderRoom();
+const theme = localStorage.getItem('forum-theme');
+if (theme === 'light') { document.body.setAttribute('data-theme', 'light'); document.getElementById('theme-icon').textContent = '☀️'; }
+const fs = localStorage.getItem('forum-font-size') || 'small'; const sizes = ['small', 'medium', 'large', 'xlarge']; const icons = ['A', 'A+', 'A++', 'A+++'];
+if (fs !== 'small') document.getElementById('room').classList.add('font-' + fs);
+document.getElementById('font-size-icon').textContent = icons[sizes.indexOf(fs)];
+} catch (error) {
+console.error('渲染失败:', error);
+document.getElementById('room').innerHTML = '<div class="loading">数据加载失败,请刷新重试</div>';
+}
+}, 0);
+</script>
+</body>
+</html>
