@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>直播间筛选 - 暗香论坛</title>
+<link rel="stylesheet" href="https://fontsapi.zeoseven.com/292/main/result.css" />
+</head>
+<body>
+<style>
+:root {
+--dark-red: #c92a2a;
+--blood-red: #e03131;
+--light-red: #ff6b6b;
+--dark-gray: #1a1a1a;
+--gray: #2a2a2a;
+--light-gray: #3a3a3a;
+--text-main: #e0e0e0;
+--text-dim: #999;
+--text-dimmer: #666;
+--gold: #ffd700;
+--border: rgba(220, 20, 60, 0.2);
+--hover-bg: rgba(220, 20, 60, 0.08);
+--base-font-size: 14px;
+}
+[data-theme='light'] {
+--dark-gray: #f5f5f5;
+--gray: #ececec;
+--light-gray: #e0e0e0;
+--text-main: #2a2a2a;
+--text-dim: #666;
+--text-dimmer: #999;
+--gold: #d97706;
+--border: rgba(220, 20, 60, 0.15);
+--hover-bg: rgba(220, 20, 60, 0.05);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body { font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.live-list-container { width: 100%; max-width: 860px; margin: 0 auto; background: var(--dark-gray); font-size: var(--base-font-size); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.live-list-container.font-medium { --base-font-size: 15px; }
+.live-list-container.font-large { --base-font-size: 17px; }
+.live-list-container.font-xlarge { --base-font-size: 19px; }
+.header { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: linear-gradient(135deg, rgba(201, 42, 42, 0.25), rgba(26, 26, 26, 0)); border-bottom: 1px solid var(--border); }
+.back-btn, .tool-btn { background: var(--gray); color: var(--text-main); border: 1px solid var(--border); border-radius: 8px; padding: 6px 12px; cursor: pointer; font-size: 0.9em; font-family: inherit; }
+.back-btn:hover, .tool-btn:hover { background: var(--hover-bg); border-color: var(--blood-red); }
+.header-title { flex: 1; font-size: 1.15em; font-weight: 700; color: var(--light-red); display: flex; align-items: center; gap: 8px; }
+.user-info { display: flex; gap: 8px; padding: 8px 16px; background: var(--gray); border-bottom: 1px solid var(--border); font-size: 0.85em; color: var(--text-dim); flex-wrap: wrap; align-items: center; }
+.user-chip { background: var(--dark-gray); border: 1px solid var(--border); border-radius: 999px; padding: 2px 12px; }
+.user-chip b { color: var(--gold); }
+.go-live-btn { margin-left: auto; background: linear-gradient(135deg, var(--dark-red), var(--blood-red)); color: #fff; border: none; border-radius: 999px; padding: 5px 16px; cursor: pointer; font-family: inherit; font-size: 0.9em; }
+.go-live-btn:hover { opacity: 0.9; }
+.search-bar { display: flex; gap: 8px; padding: 12px 16px 6px; }
+.search-input { flex: 1; background: var(--gray); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; color: var(--text-main); font-family: inherit; font-size: 1em; outline: none; }
+.search-input:focus { border-color: var(--blood-red); }
+.search-btn { background: var(--blood-red); color: #fff; border: none; border-radius: 8px; padding: 8px 18px; cursor: pointer; font-family: inherit; }
+.search-hint { padding: 0 16px 8px; color: var(--text-dimmer); font-size: 0.8em; }
+.tabs { display: flex; gap: 8px; padding: 8px 16px; overflow-x: auto; border-bottom: 1px solid var(--border); }
+.tab { flex: none; background: var(--gray); color: var(--text-dim); border: 1px solid var(--border); border-radius: 999px; padding: 4px 14px; cursor: pointer; font-size: 0.88em; font-family: inherit; white-space: nowrap; }
+.tab.active { background: var(--blood-red); color: #fff; border-color: var(--blood-red); }
+.tab .count { opacity: 0.75; margin-left: 4px; font-size: 0.85em; }
+.rooms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; padding: 14px 16px 18px; }
+.room-card { background: var(--gray); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; cursor: pointer; transition: transform 0.15s, border-color 0.15s; }
+.room-card:hover { transform: translateY(-2px); border-color: var(--blood-red); }
+.cover { position: relative; aspect-ratio: 16 / 10; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.cover-text { padding: 10px 14px; text-align: center; color: #fff; font-weight: 700; font-size: 0.95em; text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.live-badge { position: absolute; top: 6px; left: 6px; background: rgba(224, 49, 49, 0.92); color: #fff; font-size: 0.72em; padding: 1px 8px; border-radius: 4px; display: flex; align-items: center; gap: 4px; }
+.live-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #fff; animation: pulse 1.2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.type-tag { position: absolute; top: 6px; right: 6px; font-size: 0.72em; padding: 1px 8px; border-radius: 4px; background: rgba(0, 0, 0, 0.55); color: #fff; }
+.type-tag.t-mx { background: rgba(214, 51, 108, 0.85); }
+.type-tag.t-ax { background: rgba(73, 80, 87, 0.9); }
+.type-tag.t-hero { background: rgba(132, 94, 247, 0.88); }
+.type-tag.t-tea { background: rgba(47, 158, 68, 0.88); }
+.viewers { position: absolute; bottom: 6px; right: 6px; background: rgba(0, 0, 0, 0.55); color: #fff; font-size: 0.72em; padding: 1px 8px; border-radius: 10px; }
+.room-info { padding: 8px 10px 10px; }
+.room-title { font-size: 0.92em; font-weight: 600; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.8em; }
+.room-host { margin-top: 4px; font-size: 0.8em; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.empty, .loading { padding: 40px 16px; text-align: center; color: var(--text-dim); grid-column: 1 / -1; }
+.notice { padding: 8px 16px 14px; color: var(--text-dimmer); font-size: 0.78em; border-top: 1px solid var(--border); }
+@media (max-width: 520px) { .rooms-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 10px; } }
+</style>
+<div class="live-list-container" id="live-list-container">
+<div class="loading">界面加载失败,请重roll聊天试试...</div>
+</div>
+<script>
+const IMAGE_BASE_URL = 'https://img.emolsp.online/CG/wife_forum/';
+const chat_message = getChatMessages(getCurrentMessageId())[0];
+const match = chat_message.message.match(/<live_list>([\s\S]*?)<\/live_list>/);
+const liveListXML = match ? match[0] : '<live_list></live_list>';
+
+const TYPE_TABS = ['全部', '明香在场', '明香报备', '暗香匿名', '女主主播', '圈内茶会', '其他', '搜索结果'];
+let allRooms = [];
+let currentTab = '全部';
+
+function escapeHtml(s) {
+return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+function hashCode(str) {
+let h = 0;
+for (let i = 0; i < str.length; i++) {
+h = (h * 31 + str.charCodeAt(i)) | 0;
+}
+return Math.abs(h);
+}
+function formatCount(n) {
+const num = parseInt(String(n).replace(/[^\d]/g, ''), 10);
+if (isNaN(num)) return String(n);
+if (num >= 10000) return (num / 10000).toFixed(1) + '万';
+if (num >= 1000) return (num / 1000).toFixed(1) + 'k';
+return String(num);
+}
+function parseLiveListXML(xmlText) {
+console.log('========== 直播间列表解析开始 ==========');
+const data = { userLevel: '', userPoints: '', rooms: [] };
+const levelMatch = xmlText.match(/\[用户等级\|([^\]]+)\]/);
+if (levelMatch) data.userLevel = levelMatch[1].trim();
+const pointsMatch = xmlText.match(/\[用户积分\|([^\]]+)\]/);
+if (pointsMatch) data.userPoints = pointsMatch[1].trim();
+const roomsMatch = xmlText.match(/<live_rooms>([\s\S]*?)<\/live_rooms>/i);
+if (roomsMatch) {
+const roomRegex = /\[直播间\|([^\|]+)\|([^\|]+)\|([^\|]+)\|([^\|]*)\|([^\|]+)\|([^\]]+)\]/g;
+let m;
+while ((m = roomRegex.exec(roomsMatch[1])) !== null) {
+const cover = m[4].trim();
+data.rooms.push({
+host: m[1].trim(),
+title: m[2].trim(),
+viewers: m[3].trim(),
+cover: cover && cover !== '无' ? IMAGE_BASE_URL + cover : '',
+type: m[5].trim(),
+id: m[6].trim(),
+});
+}
+}
+console.log('解析完成 - 直播间数量:', data.rooms.length);
+return data;
+}
+function typeClass(type) {
+if (type.indexOf('明香') === 0) return 't-mx';
+if (type === '暗香匿名') return 't-ax';
+if (type === '女主主播') return 't-hero';
+if (type === '圈内茶会') return 't-tea';
+return '';
+}
+function gradientFor(title) {
+const hue = hashCode(title) % 360;
+return `linear-gradient(135deg, hsl(${hue}, 55%, 38%), hsl(${(hue + 40) % 360}, 60%, 24%))`;
+}
+function renderTabs() {
+const counts = {};
+allRooms.forEach((r) => { counts[r.type] = (counts[r.type] || 0) + 1; });
+return TYPE_TABS.filter((tab) => tab === '全部' || counts[tab])
+.map((tab) => {
+const count = tab === '全部' ? allRooms.length : counts[tab];
+return `<button class="tab ${tab === currentTab ? 'active' : ''}" onclick="switchTab('${tab}')">${tab}<span class="count">${count}</span></button>`;
+}).join('');
+}
+function renderRooms() {
+const list = currentTab === '全部' ? allRooms : allRooms.filter((r) => r.type === currentTab);
+if (!list.length) return '<div class="empty">暂时没有符合条件的直播间</div>';
+return list.map((room) => {
+const bg = room.cover ? `background-image:url('${room.cover}')` : `background:${gradientFor(room.title)}`;
+const coverText = room.cover ? '' : `<div class="cover-text">${escapeHtml(room.title)}</div>`;
+return `<div class="room-card" onclick="enterRoom('${escapeHtml(room.host).replace(/'/g, '')}', '${escapeHtml(room.title).replace(/'/g, '')}')">
+<div class="cover" style="${bg}">
+<span class="live-badge">LIVE</span>
+<span class="type-tag ${typeClass(room.type)}">${escapeHtml(room.type)}</span>
+${coverText}
+<span class="viewers">👁 ${formatCount(room.viewers)}</span>
+</div>
+<div class="room-info">
+<div class="room-title">${escapeHtml(room.title)}</div>
+<div class="room-host">🎙 ${escapeHtml(room.host)}</div>
+</div>
+</div>`;
+}).join('');
+}
+function renderPage(data) {
+allRooms = data.rooms;
+const container = document.getElementById('live-list-container');
+container.innerHTML = `
+<div class="header">
+<button class="back-btn" onclick="goBack()">← 返回</button>
+<div class="header-title"><span>📺</span><span>暗香直播间</span></div>
+<button class="tool-btn" onclick="toggleFontSize()"><span id="font-size-icon">A</span></button>
+<button class="tool-btn" onclick="toggleTheme()"><span id="theme-icon">🌙</span></button>
+</div>
+<div class="user-info">
+<span class="user-chip">女主等级 <b>Lv.${escapeHtml(data.userLevel || '-')}</b></span>
+<span class="user-chip">积分 <b>${escapeHtml(data.userPoints || '0')}</b></span>
+<button class="go-live-btn" onclick="goLive()">🎙️ 我要开播</button>
+</div>
+<div class="search-bar">
+<input class="search-input" id="search-input" placeholder="搜索直播,如:衬衫、报平安、慢热..." onkeydown="if(event.key==='Enter')doSearch()" />
+<button class="search-btn" onclick="doSearch()">搜索</button>
+</div>
+<div class="search-hint">支持关键词搜索,结果仅包含成年人自愿参与的内容</div>
+<div class="tabs" id="tabs">${renderTabs()}</div>
+<div class="rooms-grid" id="rooms-grid">${renderRooms()}</div>
+<div class="notice">所有主播均为成年人。互动为邀约,主播自愿决定是否回应;未经同意不得录屏、截图外传,不得追问主播身份。</div>`;
+}
+function switchTab(tab) {
+currentTab = tab;
+document.getElementById('tabs').innerHTML = renderTabs();
+document.getElementById('rooms-grid').innerHTML = renderRooms();
+}
+function sendCmd(cmd) {
+if (typeof triggerSlash === 'function') {
+triggerSlash(cmd);
+}
+}
+function enterRoom(host, title) {
+sendCmd(`/send 进入直播间:${host}|${title} | /trigger`);
+}
+function doSearch() {
+const kw = document.getElementById('search-input').value.trim();
+if (!kw) return;
+sendCmd(`/send 搜索直播 ${kw} | /trigger`);
+}
+function goLive() {
+sendCmd('/send 开启直播 | /trigger');
+}
+function goBack() {
+sendCmd('/send 返回论坛 | /trigger');
+}
+function toggleTheme() {
+const body = document.body;
+const icon = document.getElementById('theme-icon');
+if (body.getAttribute('data-theme') === 'light') {
+body.removeAttribute('data-theme');
+icon.textContent = '🌙';
+localStorage.setItem('forum-theme', 'dark');
+} else {
+body.setAttribute('data-theme', 'light');
+icon.textContent = '☀️';
+localStorage.setItem('forum-theme', 'light');
+}
+}
+function toggleFontSize() {
+const sizes = ['small', 'medium', 'large', 'xlarge'];
+const icons = ['A', 'A+', 'A++', 'A+++'];
+const container = document.getElementById('live-list-container');
+const cur = localStorage.getItem('forum-font-size') || 'small';
+const next = sizes[(sizes.indexOf(cur) + 1) % sizes.length];
+container.classList.remove('font-medium', 'font-large', 'font-xlarge');
+if (next !== 'small') container.classList.add('font-' + next);
+document.getElementById('font-size-icon').textContent = icons[sizes.indexOf(next)];
+localStorage.setItem('forum-font-size', next);
+}
+function syncFromStorage(e) {
+const body = document.body;
+const icon = document.getElementById('theme-icon');
+if (e.key === 'forum-theme') {
+if (e.newValue === 'light') {
+body.setAttribute('data-theme', 'light');
+if (icon) icon.textContent = '☀️';
+} else {
+body.removeAttribute('data-theme');
+if (icon) icon.textContent = '🌙';
+}
+}
+if (e.key === 'forum-font-size') {
+const container = document.getElementById('live-list-container');
+const sizes = ['small', 'medium', 'large', 'xlarge'];
+const icons = ['A', 'A+', 'A++', 'A+++'];
+container.classList.remove('font-medium', 'font-large', 'font-xlarge');
+if (e.newValue && e.newValue !== 'small') container.classList.add('font-' + e.newValue);
+const fi = document.getElementById('font-size-icon');
+if (fi) fi.textContent = icons[sizes.indexOf(e.newValue || 'small')];
+}
+}
+window.addEventListener('storage', syncFromStorage);
+setTimeout(function () {
+try {
+const data = parseLiveListXML(liveListXML);
+renderPage(data);
+const theme = localStorage.getItem('forum-theme');
+if (theme === 'light') {
+document.body.setAttribute('data-theme', 'light');
+document.getElementById('theme-icon').textContent = '☀️';
+}
+const fs = localStorage.getItem('forum-font-size') || 'small';
+const sizes = ['small', 'medium', 'large', 'xlarge'];
+const icons = ['A', 'A+', 'A++', 'A+++'];
+if (fs !== 'small') document.getElementById('live-list-container').classList.add('font-' + fs);
+document.getElementById('font-size-icon').textContent = icons[sizes.indexOf(fs)];
+} catch (error) {
+console.error('渲染失败:', error);
+document.getElementById('live-list-container').innerHTML = '<div class="loading">数据加载失败,请刷新重试</div>';
+}
+}, 0);
+</script>
+</body>
+</html>
