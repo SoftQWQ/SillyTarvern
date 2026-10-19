@@ -1196,6 +1196,12 @@ lightClass = "yellow";
 }
 detailsHTML += `<div class="event-detail-item"><span>边界约定:</span><span><div class="payment-status-indicator">${boundaryStatus}<span class="status-light ${lightClass}"></span></div></span></div>`;
 }
+const liveStatus = SafeGetValue(characterData, "当前事件.直播.状态", "未直播");
+const liveName = SafeGetValue(characterData, "当前事件.直播.昵称", "");
+if (name !== "无事件" && liveStatus && liveStatus !== "未直播") {
+const liveClass = liveStatus === "直播中" ? "red" : "yellow";
+detailsHTML += `<div class="event-detail-item"><span>直播:</span><span><div class="payment-status-indicator">${liveStatus}${liveName ? " · " + liveName : ""}<span class="status-light ${liveClass}"></span></div></span></div>`;
+}
 if (type !== "无") {
 detailsHTML += `<div class="event-detail-item"><span>事件类型:</span><span>${getEventTypeTag(
 type
