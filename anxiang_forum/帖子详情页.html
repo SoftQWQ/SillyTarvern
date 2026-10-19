@@ -42,7 +42,12 @@ padding: 0;
 box-sizing: border-box;
 }
 body {
-font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+font-family:
+'Noto Sans SC',
+-apple-system,
+BlinkMacSystemFont,
+'Segoe UI',
+sans-serif;
 color: var(--text-main);
 line-height: 1.6;
 -webkit-font-smoothing: antialiased;
@@ -269,75 +274,6 @@ border-radius: 3px;
 font-size: 0.75em;
 margin-left: 8px;
 }
-
-/* 新增的回复输入区样式 */
-.reply-section {
-background: var(--gray);
-padding: 16px;
-border-top: 1px solid var(--border);
-}
-.reply-section-title {
-font-size: 1em;
-font-weight: 600;
-color: var(--blood-red);
-margin-bottom: 12px;
-display: flex;
-align-items: center;
-gap: 6px;
-}
-.reply-input-container {
-background: var(--light-gray);
-border-radius: 8px;
-padding: 12px;
-}
-.reply-textarea {
-width: 100%;
-min-height: 120px;
-background: var(--dark-gray);
-border: 1px solid var(--border);
-border-radius: 6px;
-padding: 12px;
-color: var(--text-main);
-font-size: 0.95em;
-font-family: inherit;
-line-height: 1.6;
-resize: vertical;
-outline: none;
-transition: border-color 0.2s;
-}
-.reply-textarea:focus {
-border-color: var(--blood-red);
-}
-.reply-textarea::placeholder {
-color: var(--text-dimmer);
-}
-.reply-actions {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-top: 12px;
-}
-.reply-tips {
-color: var(--text-dim);
-font-size: 0.85em;
-}
-.reply-submit-btn {
-background: var(--blood-red);
-color: #fff;
-border: none;
-padding: 10px 24px;
-border-radius: 6px;
-font-size: 0.95em;
-font-weight: 600;
-cursor: pointer;
-transition: all 0.2s;
-outline: none;
-}
-.reply-submit-btn:hover {
-background: var(--light-red);
-transform: translateY(-1px);
-}
-
 .lightbox {
 display: none;
 position: fixed;
@@ -362,7 +298,9 @@ border-radius: 12px;
 box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 opacity: 0;
 transform: scale(0.9);
-transition: opacity 0.3s ease, transform 0.3s ease;
+transition:
+opacity 0.3s ease,
+transform 0.3s ease;
 }
 .lightbox-image.loaded {
 opacity: 1;
@@ -391,22 +329,45 @@ color: rgba(255, 255, 255, 0.8);
 font-size: 0.9em;
 }
 @keyframes spin {
-to { transform: rotate(360deg); }
+to {
+transform: rotate(360deg);
+}
 }
 @media (max-width: 768px) {
-.post-container { font-size: var(--base-font-size, 13px); }
-.post-container.font-medium { --base-font-size: 15px; }
-.post-container.font-large { --base-font-size: 17px; }
-.post-container.font-xlarge { --base-font-size: 19px; }
-.post-image-wrapper { width: 120px; height: 120px; }
-.reply-actions { flex-direction: column; gap: 10px; align-items: stretch; }
-.reply-tips { text-align: center; }
+.post-container {
+font-size: var(--base-font-size, 13px);
 }
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(220, 20, 60, 0.3); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(220, 20, 60, 0.5); }
-* { -webkit-tap-highlight-color: transparent; }
+.post-container.font-medium {
+--base-font-size: 15px;
+}
+.post-container.font-large {
+--base-font-size: 17px;
+}
+.post-container.font-xlarge {
+--base-font-size: 19px;
+}
+.post-image-wrapper {
+width: 120px;
+height: 120px;
+}
+}
+::-webkit-scrollbar {
+width: 6px;
+height: 6px;
+}
+::-webkit-scrollbar-track {
+background: transparent;
+}
+::-webkit-scrollbar-thumb {
+background: rgba(220, 20, 60, 0.3);
+border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+background: rgba(220, 20, 60, 0.5);
+}
+* {
+-webkit-tap-highlight-color: transparent;
+}
 .loading {
 text-align: center;
 padding: 50px;
@@ -429,7 +390,6 @@ const chat_message = getChatMessages(getCurrentMessageId())[0];
 const match = chat_message.message.match(/<post_data>([\s\S]*?)<\/post_data>/);
 const postDataXML = match ? match[0] : '<post_data></post_data>';
 const IMAGE_BASE_URL = 'https://img.emolsp.online/CG/wife_forum/';
-
 function parsePostDataXML(xmlText) {
 console.log('========== 帖子数据解析开始 ==========');
 console.log('XML数据长度:', xmlText.length);
@@ -493,7 +453,6 @@ console.error('解析帖子数据出错:', error);
 return data;
 }
 }
-
 function renderPost(data) {
 console.log('开始渲染帖子...');
 const container = document.getElementById('post-container');
@@ -586,60 +545,9 @@ ${imagesHTML}
 </div>
 ${repliesHTML || '<div class="loading">暂无回复</div>'}
 </div>
-
-<!-- 新增的底部回复输入框 -->
-<div class="reply-section">
-<div class="reply-section-title">
-<span>✍️</span>
-<span>回复帖主</span>
-</div>
-<div class="reply-input-container">
-<textarea class="reply-textarea" id="reply-textarea" placeholder="在此输入你的回复内容...&#10;&#10;可以介绍自己的情况、表达兴趣、询问细节等" maxlength="500"></textarea>
-<div class="reply-actions">
-<div class="reply-tips">💡 按 Enter 发送,Shift + Enter 换行 | 请文明回复,尊重他人隐私</div>
-<button class="reply-submit-btn" onclick="submitReply()">
-发送回复
-</button>
-</div>
-</div>
-</div>
-
 `;
 console.log('帖子渲染完成');
-
-// 绑定回车发送
-const textarea = document.getElementById('reply-textarea');
-if (textarea) {
-textarea.addEventListener('keydown', function(e) {
-if (e.key === 'Enter' && !e.shiftKey) {
-e.preventDefault();
-submitReply();
 }
-});
-}
-}
-
-function submitReply() {
-const textarea = document.getElementById('reply-textarea');
-if (!textarea) return;
-const content = textarea.value.trim();
-if (!content) {
-alert('回复内容不能为空');
-return;
-}
-const titleElement = document.querySelector('.post-title-full');
-const postTitle = titleElement ? titleElement.textContent : "未知帖子";
-const replyMessage = `回复帖子《${postTitle}》:${content}`;
-const cmd = `/send ${replyMessage} | /trigger`;
-if (typeof triggerSlash === 'function') {
-triggerSlash(cmd);
-textarea.value = '';
-} else {
-console.error('triggerSlash 函数不可用');
-alert('发送失败,请确保在正确的环境中使用');
-}
-}
-
 function cycleFontSize() {
 const container = document.getElementById('post-container');
 const icon = document.getElementById('font-size-icon');
