@@ -232,7 +232,7 @@ function goList() { sendCmd('/send 查看直播列表 | /trigger'); }
 function sendDanmaku() {
 const input = document.getElementById('dm-input'); const text = input.value.trim(); if (!text) return;
 spawnDanmaku(text); input.value = '';
-sendCmd(`/send 发送弹幕:${text} | /trigger`);
+sendCmd(`/send 发送弹幕:${text.replace(/\|/g, '｜')} | /trigger`);
 }
 /* ---------- 弹窗 ---------- */
 function openModal(html) { document.getElementById('modal').innerHTML = html; document.getElementById('modal-mask').classList.add('show'); }
@@ -283,7 +283,7 @@ openModal(`<h3>✉ 私信主播</h3><div class="hint">请保持友善与尊重,�
 }
 function sendPM() {
 const t = document.getElementById('pm-text').value.trim(); if (!t) return;
-sendCmd(`/send 向主播发私信:${t} | /trigger`); closeModal(); toast('私信已发送');
+sendCmd(`/send 向主播发私信:${t.replace(/\|/g, '｜')} | /trigger`); closeModal(); toast('私信已发送');
 }
 /* ---------- 主题与字号 ---------- */
 function toggleTheme() {
