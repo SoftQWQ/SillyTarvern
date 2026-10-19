@@ -210,12 +210,12 @@ triggerSlash(cmd);
 }
 }
 function enterRoom(host, title) {
-sendCmd(`/send 进入直播间:${host}|${title} | /trigger`);
+sendCmd(`/send 进入直播间:${host}《${title}》 | /trigger`);
 }
 function doSearch() {
 const kw = document.getElementById('search-input').value.trim();
 if (!kw) return;
-sendCmd(`/send 搜索直播 ${kw} | /trigger`);
+sendCmd(`/send 搜索直播 ${kw.replace(/\|/g, '｜')} | /trigger`);
 }
 function goLive() {
 sendCmd('/send 开启直播 | /trigger');
