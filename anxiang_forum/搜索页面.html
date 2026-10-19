@@ -767,7 +767,7 @@ triggerSlash(cmd);
 }
 }
 function performSearch(keyword) {
-const cmd = `/send 搜索:${keyword} | /trigger`;
+const cmd = `/send 搜索关键词 ${keyword} | /trigger`;
 if (typeof triggerSlash === "function") {
 triggerSlash(cmd);
 }
@@ -835,7 +835,7 @@ let cmd;
 if (pendingAction === "hotSearch") {
 cmd = `/send 查看热搜:${pendingKeyword} | /trigger`;
 } else {
-cmd = `/send 搜索:${pendingKeyword} | /trigger`;
+cmd = `/send 搜索关键词 ${pendingKeyword} | /trigger`;
 }
 if (typeof triggerSlash === "function") {
 triggerSlash(cmd);
