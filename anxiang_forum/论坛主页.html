@@ -1020,6 +1020,7 @@ ${witnessPostsHTML || '<div class="loading">暂无内容</div>'}
 <div class="section-header">
 <span>💕</span>
 <span>相约区 - 发布你想要认识的类型</span>
+<button onclick="enterDatingArea(); event.stopPropagation();" style="margin-left:auto;background:var(--blood-red);color:#fff;border:none;border-radius:999px;padding:3px 12px;font-size:0.8em;cursor:pointer;">进入相约区 ›</button>
 </div>
 <div class="post-list">
 ${datingPostsHTML || '<div class="loading">暂无内容</div>'}
@@ -1351,8 +1352,14 @@ if (typeof triggerSlash === 'function') {
 triggerSlash(cmd);
 }
 }
+function enterDatingArea() {
+const cmd = `/send 进入相约区 | /trigger`;
+if (typeof triggerSlash === 'function') {
+triggerSlash(cmd);
+}
+}
 function enterShop() {
-const cmd = `/send 进入论坛商城 | /trigger`;
+const cmd = `/send 进入小筑 | /trigger`;
 if (typeof triggerSlash === 'function') {
 triggerSlash(cmd);
 }
