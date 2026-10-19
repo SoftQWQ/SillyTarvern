@@ -4,7 +4,12 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>暗香论坛 - 暗香定制</title>
-<link rel="stylesheet" href="https://fontsapi.zeoseven.com/292/main/result.css" />
+<link
+rel="stylesheet"
+href="https://fontsapi.zeoseven.com/292/main/result.css"
+/>
+</head>
+<body>
 <style>
 :root {
 --dark-red: #c92a2a;
@@ -42,7 +47,8 @@ padding: 0;
 box-sizing: border-box;
 }
 body {
-font-family: "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+font-family: "Noto Sans SC", -apple-system, BlinkMacSystemFont,
+"Segoe UI", sans-serif;
 color: var(--text-main);
 line-height: 1.6;
 -webkit-font-smoothing: antialiased;
@@ -108,8 +114,14 @@ animation: fadeIn 0.5s ease-out;
 display: block;
 }
 @keyframes fadeIn {
-from { opacity: 0; transform: translateY(15px); }
-to { opacity: 1; transform: translateY(0); }
+from {
+opacity: 0;
+transform: translateY(15px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
 }
 .page-title {
 font-size: 1.05em;
@@ -305,19 +317,40 @@ color: var(--gold);
 font-weight: 500;
 }
 @media (max-width: 768px) {
-.container { font-size: 13px; }
-.options-grid { grid-template-columns: 1fr; }
-.info-grid { grid-template-columns: 1fr; }
+.container {
+font-size: 13px;
 }
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(220, 20, 60, 0.3); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(220, 20, 60, 0.5); }
-* { -webkit-tap-highlight-color: transparent; }
+.options-grid {
+grid-template-columns: 1fr;
+}
+.info-grid {
+grid-template-columns: 1fr;
+}
+}
+::-webkit-scrollbar {
+width: 6px;
+height: 6px;
+}
+::-webkit-scrollbar-track {
+background: transparent;
+}
+::-webkit-scrollbar-thumb {
+background: rgba(220, 20, 60, 0.3);
+border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+background: rgba(220, 20, 60, 0.5);
+}
+* {
+-webkit-tap-highlight-color: transparent;
+}
 .modal-overlay {
 display: none;
 position: absolute;
-top: 0; left: 0; right: 0; bottom: 0;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
 background: rgba(0, 0, 0, 0.7);
 z-index: 1000;
 animation: fadeIn 0.2s ease-out;
@@ -339,8 +372,14 @@ box-shadow: 0 8px 32px rgba(220, 20, 60, 0.3);
 animation: slideUp 0.3s ease-out;
 }
 @keyframes slideUp {
-from { opacity: 0; transform: translateY(20px); }
-to { opacity: 1; transform: translateY(0); }
+from {
+opacity: 0;
+transform: translateY(20px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
 }
 .modal-title {
 font-size: 1.1em;
@@ -386,9 +425,15 @@ color: var(--text-main);
 background: var(--hover-bg);
 }
 @media (max-width: 768px) {
-.modal-content { padding: 20px; }
-.modal-buttons { flex-direction: column-reverse; }
-.modal-btn { width: 100%; }
+.modal-content {
+padding: 20px;
+}
+.modal-buttons {
+flex-direction: column-reverse;
+}
+.modal-btn {
+width: 100%;
+}
 }
 </style>
 <div class="container">
@@ -402,7 +447,10 @@ background: var(--hover-bg);
 <button class="modal-btn modal-btn-cancel" onclick="closeModal()">
 取消
 </button>
-<button class="modal-btn modal-btn-confirm" onclick="confirmViewForum()">
+<button
+class="modal-btn modal-btn-confirm"
+onclick="confirmViewForum()"
+>
 确认
 </button>
 </div>
@@ -449,19 +497,28 @@ background: var(--hover-bg);
 <div class="page-title">关系类型</div>
 <div class="page-desc">他现在处在什么样的关系里</div>
 <div class="options-grid">
-<div class="option-card" onclick="selectRelationshipType('男朋友', this)">
+<div
+class="option-card"
+onclick="selectRelationshipType('男朋友', this)"
+>
 <div class="icon">💕</div>
 <div class="label">男朋友</div>
 <div class="desc">
 情侣关系,未婚状态<br />和女友交往多年,日子安稳
 </div>
 </div>
-<div class="option-card" onclick="selectRelationshipType('已婚丈夫', this)">
+<div
+class="option-card"
+onclick="selectRelationshipType('已婚丈夫', this)"
+>
 <div class="icon">💍</div>
 <div class="label">已婚丈夫</div>
 <div class="desc">夫妻关系,已婚状态<br />家里有等他回去的人</div>
 </div>
-<div class="option-card" onclick="selectRelationshipType('同居伴侣', this)">
+<div
+class="option-card"
+onclick="selectRelationshipType('同居伴侣', this)"
+>
 <div class="icon">🏠</div>
 <div class="label">同居伴侣</div>
 <div class="desc">长期同居,未婚<br />关系稳定,身体久未被点燃</div>
@@ -469,7 +526,12 @@ background: var(--hover-bg);
 </div>
 <div class="nav-buttons" id="navButtons1">
 <button class="btn btn-prev" onclick="prevPage()">上一步</button>
-<button class="btn btn-next" id="nextBtn1" onclick="nextPage()" disabled>
+<button
+class="btn btn-next"
+id="nextBtn1"
+onclick="nextPage()"
+disabled
+>
 下一步
 </button>
 </div>
@@ -478,27 +540,42 @@ background: var(--hover-bg);
 <div class="page-title">身材类型</div>
 <div class="page-desc">你最心动的身体是什么样子</div>
 <div class="options-grid">
-<div class="option-card" onclick="selectOption('body', '高大健壮', this)">
+<div
+class="option-card"
+onclick="selectOption('body', '高大健壮', this)"
+>
 <div class="icon">💪</div>
 <div class="label">高大健壮</div>
 <div class="desc">肩宽背厚,胸肌结实,手臂有力,抱起人来很稳</div>
 </div>
-<div class="option-card" onclick="selectOption('body', '清瘦修长', this)">
+<div
+class="option-card"
+onclick="selectOption('body', '清瘦修长', this)"
+>
 <div class="icon">🌿</div>
 <div class="label">清瘦修长</div>
 <div class="desc">骨架分明,锁骨与手腕的线条清晰,斯文干净</div>
 </div>
-<div class="option-card" onclick="selectOption('body', '微胖敦厚', this)">
+<div
+class="option-card"
+onclick="selectOption('body', '微胖敦厚', this)"
+>
 <div class="icon">🍞</div>
 <div class="label">微胖敦厚</div>
 <div class="desc">肩背厚实,肚子软软的,抱起来温暖踏实</div>
 </div>
-<div class="option-card" onclick="selectOption('body', '精悍紧实', this)">
+<div
+class="option-card"
+onclick="selectOption('body', '精悍紧实', this)"
+>
 <div class="icon">🔥</div>
 <div class="label">精悍紧实</div>
 <div class="desc">常年运动,腹肌与人鱼线明显,肌肉线条紧致</div>
 </div>
-<div class="option-card" onclick="selectOption('body', '匀称斯文', this)">
+<div
+class="option-card"
+onclick="selectOption('body', '匀称斯文', this)"
+>
 <div class="icon">👔</div>
 <div class="label">匀称斯文</div>
 <div class="desc">不夸张的身材,衬衫下隐约有肌肉轮廓</div>
@@ -506,12 +583,23 @@ background: var(--hover-bg);
 <div class="option-card" onclick="selectCustomOption('body', this)">
 <div class="icon">✏️</div>
 <div class="label">自定义</div>
-<input type="text" class="custom-input" placeholder="输入自定义身材" onclick="event.stopPropagation()" data-category="body" />
+<input
+type="text"
+class="custom-input"
+placeholder="输入自定义身材"
+onclick="event.stopPropagation()"
+data-category="body"
+/>
 </div>
 </div>
 <div class="nav-buttons" id="navButtons2">
 <button class="btn btn-prev" onclick="prevPage()">上一步</button>
-<button class="btn btn-next" id="nextBtn2" onclick="nextPage()" disabled>
+<button
+class="btn btn-next"
+id="nextBtn2"
+onclick="nextPage()"
+disabled
+>
 下一步
 </button>
 </div>
@@ -520,45 +608,77 @@ background: var(--hover-bg);
 <div class="page-title">性格特质</div>
 <div class="page-desc">他会是什么样的人</div>
 <div class="options-grid">
-<div class="option-card" onclick="selectOption('personality', '温柔体贴', this)">
+<div
+class="option-card"
+onclick="selectOption('personality', '温柔体贴', this)"
+>
 <div class="icon">😊</div>
 <div class="label">温柔体贴</div>
 <div class="desc">细心照顾他人,容易为你放慢脚步</div>
 </div>
-<div class="option-card" onclick="selectOption('personality', '沉稳克制', this)">
+<div
+class="option-card"
+onclick="selectOption('personality', '沉稳克制', this)"
+>
 <div class="icon">🌊</div>
 <div class="label">沉稳克制</div>
 <div class="desc">表面冷静,内心翻涌,越克制越让人想撩拨</div>
 </div>
-<div class="option-card" onclick="selectOption('personality', '内敛腼腆', this)">
+<div
+class="option-card"
+onclick="selectOption('personality', '内敛腼腆', this)"
+>
 <div class="icon">😳</div>
 <div class="label">内敛腼腆</div>
 <div class="desc">话少,容易脸红,被碰到会下意识躲闪</div>
 </div>
-<div class="option-card" onclick="selectOption('personality', '幽默风趣', this)">
+<div
+class="option-card"
+onclick="selectOption('personality', '幽默风趣', this)"
+>
 <div class="icon">😄</div>
 <div class="label">幽默风趣</div>
 <div class="desc">懂得用玩笑缓解尴尬,笑起来很有感染力</div>
 </div>
-<div class="option-card" onclick="selectOption('personality', '强势果断', this)">
+<div
+class="option-card"
+onclick="selectOption('personality', '强势果断', this)"
+>
 <div class="icon">👑</div>
 <div class="label">强势果断</div>
 <div class="desc">习惯掌控局面,在你面前却会出现裂缝</div>
 </div>
-<div class="option-card" onclick="selectOption('personality', '知性优雅', this)">
+<div
+class="option-card"
+onclick="selectOption('personality', '知性优雅', this)"
+>
 <div class="icon">📚</div>
 <div class="label">知性优雅</div>
 <div class="desc">谈吐有分寸,气质出众,礼貌里藏着暗涌</div>
 </div>
-<div class="option-card" onclick="selectCustomOption('personality', this)">
+<div
+class="option-card"
+onclick="selectCustomOption('personality', this)"
+>
 <div class="icon">✏️</div>
 <div class="label">自定义</div>
-<input type="text" class="custom-input" placeholder="输入自定义性格" onclick="event.stopPropagation()" data-category="personality" />
+<input
+type="text"
+class="custom-input"
+placeholder="输入自定义性格"
+onclick="event.stopPropagation()"
+data-category="personality"
+/>
 </div>
 </div>
 <div class="nav-buttons" id="navButtons3">
 <button class="btn btn-prev" onclick="prevPage()">上一步</button>
-<button class="btn btn-next" id="nextBtn3" onclick="nextPage()" disabled>
+<button
+class="btn btn-next"
+id="nextBtn3"
+onclick="nextPage()"
+disabled
+>
 下一步
 </button>
 </div>
@@ -567,27 +687,42 @@ background: var(--hover-bg);
 <div class="page-title">年龄范围</div>
 <div class="page-desc">选择最吸引你的年龄段</div>
 <div class="options-grid">
-<div class="option-card" onclick="selectOption('age', '25-30岁', this)">
+<div
+class="option-card"
+onclick="selectOption('age', '25-30岁', this)"
+>
 <div class="icon">🌱</div>
 <div class="label">25-30岁</div>
 <div class="desc">刚成家不久,对婚姻与自己都还在摸索</div>
 </div>
-<div class="option-card" onclick="selectOption('age', '30-35岁', this)">
+<div
+class="option-card"
+onclick="selectOption('age', '30-35岁', this)"
+>
 <div class="icon">💋</div>
 <div class="label">30-35岁</div>
 <div class="desc">精力充沛,事业上升,身体反应直接</div>
 </div>
-<div class="option-card" onclick="selectOption('age', '35-40岁', this)">
+<div
+class="option-card"
+onclick="selectOption('age', '35-40岁', this)"
+>
 <div class="icon">🍷</div>
 <div class="label">35-40岁</div>
 <div class="desc">成熟稳重,懂得克制,也懂得被渴望的珍贵</div>
 </div>
-<div class="option-card" onclick="selectOption('age', '40-45岁', this)">
+<div
+class="option-card"
+onclick="selectOption('age', '40-45岁', this)"
+>
 <div class="icon">🕰️</div>
 <div class="label">40-45岁</div>
 <div class="desc">沉稳有味道,习惯承担,偶尔想被人照顾</div>
 </div>
-<div class="option-card" onclick="selectOption('age', '45岁以上', this)">
+<div
+class="option-card"
+onclick="selectOption('age', '45岁以上', this)"
+>
 <div class="icon">💎</div>
 <div class="label">45岁以上</div>
 <div class="desc">阅历深厚,节奏缓慢,需要更多耐心与前戏</div>
@@ -595,12 +730,23 @@ background: var(--hover-bg);
 <div class="option-card" onclick="selectCustomOption('age', this)">
 <div class="icon">✏️</div>
 <div class="label">自定义</div>
-<input type="text" class="custom-input" placeholder="输入自定义年龄" onclick="event.stopPropagation()" data-category="age" />
+<input
+type="text"
+class="custom-input"
+placeholder="输入自定义年龄"
+onclick="event.stopPropagation()"
+data-category="age"
+/>
 </div>
 </div>
 <div class="nav-buttons" id="navButtons4">
 <button class="btn btn-prev" onclick="prevPage()">上一步</button>
-<button class="btn btn-next" id="nextBtn4" onclick="nextPage()" disabled>
+<button
+class="btn btn-next"
+id="nextBtn4"
+onclick="nextPage()"
+disabled
+>
 下一步
 </button>
 </div>
@@ -609,50 +755,85 @@ background: var(--hover-bg);
 <div class="page-title">关系设定</div>
 <div class="page-desc">你和他之间在现实中是什么关系</div>
 <div class="options-grid" id="relationOptionsGrid">
-<div class="option-card" onclick="selectOption('relation', '论坛相识', this)">
+<div
+class="option-card"
+onclick="selectOption('relation', '论坛相识', this)"
+>
 <div class="icon">📱</div>
 <div class="label">论坛相识</div>
 <div class="desc">通过暗香论坛认识</div>
 </div>
-<div class="option-card" onclick="selectOption('relation', '邻居', this)">
+<div
+class="option-card"
+onclick="selectOption('relation', '邻居', this)"
+>
 <div class="icon">🏠</div>
 <div class="label">邻居</div>
 <div class="desc">住在隔壁,白天电梯里点头,夜里在论坛相遇</div>
 </div>
-<div class="option-card" onclick="selectOption('relation', '好友伴侣', this)">
+<div
+class="option-card"
+onclick="selectOption('relation', '好友伴侣', this)"
+>
 <div class="icon">🤝</div>
 <div class="label">好友伴侣</div>
 <div class="desc">你好友的男友或丈夫</div>
 </div>
-<div class="option-card" onclick="selectOption('relation', '上司伴侣', this)">
+<div
+class="option-card"
+onclick="selectOption('relation', '上司伴侣', this)"
+>
 <div class="icon">💼</div>
 <div class="label">上司伴侣</div>
 <div class="desc">你上司的丈夫或男友</div>
 </div>
-<div class="option-card" onclick="selectOption('relation', '前男友', this)">
+<div
+class="option-card"
+onclick="selectOption('relation', '前男友', this)"
+>
 <div class="icon">💔</div>
 <div class="label">前男友</div>
 <div class="desc">曾经的恋人,如今已有新的伴侣</div>
 </div>
-<div class="option-card" onclick="selectOption('relation', '陌生相约', this)">
+<div
+class="option-card"
+onclick="selectOption('relation', '陌生相约', this)"
+>
 <div class="icon">🎲</div>
 <div class="label">陌生相约</div>
 <div class="desc">他在论坛发帖,与你此前无任何交集</div>
 </div>
-<div class="option-card" onclick="selectOption('relation', '熟人', this)">
+<div
+class="option-card"
+onclick="selectOption('relation', '熟人', this)"
+>
 <div class="icon">🔥</div>
 <div class="label">熟人</div>
 <div class="desc">同事/朋友/邻居,背着伴侣前来</div>
 </div>
-<div class="option-card" onclick="selectCustomOption('relation', this)">
+<div
+class="option-card"
+onclick="selectCustomOption('relation', this)"
+>
 <div class="icon">✏️</div>
 <div class="label">自定义</div>
-<input type="text" class="custom-input" placeholder="输入自定义关系" onclick="event.stopPropagation()" data-category="relation" />
+<input
+type="text"
+class="custom-input"
+placeholder="输入自定义关系"
+onclick="event.stopPropagation()"
+data-category="relation"
+/>
 </div>
 </div>
 <div class="nav-buttons" id="navButtons5">
 <button class="btn btn-prev" onclick="prevPage()">上一步</button>
-<button class="btn btn-next" id="nextBtn5" onclick="nextPage()" disabled>
+<button
+class="btn btn-next"
+id="nextBtn5"
+onclick="nextPage()"
+disabled
+>
 下一步
 </button>
 </div>
@@ -661,45 +842,77 @@ background: var(--hover-bg);
 <div class="page-title">职业身份</div>
 <div class="page-desc">他的社会角色</div>
 <div class="options-grid">
-<div class="option-card" onclick="selectOption('career', '白领精英', this)">
+<div
+class="option-card"
+onclick="selectOption('career', '白领精英', this)"
+>
 <div class="icon">👔</div>
 <div class="label">白领精英</div>
 <div class="desc">职场干练,衬衫领带,下班后才松开领口</div>
 </div>
-<div class="option-card" onclick="selectOption('career', '工程师', this)">
+<div
+class="option-card"
+onclick="selectOption('career', '工程师', this)"
+>
 <div class="icon">🔧</div>
 <div class="label">工程师</div>
 <div class="desc">理性克制,手指灵活,沉默里藏着温度</div>
 </div>
-<div class="option-card" onclick="selectOption('career', '医生', this)">
+<div
+class="option-card"
+onclick="selectOption('career', '医生', this)"
+>
 <div class="icon">🩺</div>
 <div class="label">医生</div>
 <div class="desc">白大褂下的手稳而有力,忙碌后更需要被照顾</div>
 </div>
-<div class="option-card" onclick="selectOption('career', '设计师', this)">
+<div
+class="option-card"
+onclick="selectOption('career', '设计师', this)"
+>
 <div class="icon">📖</div>
 <div class="label">设计师</div>
 <div class="desc">为人师表,在你面前却会失态</div>
 </div>
-<div class="option-card" onclick="selectOption('career', '企业老板', this)">
+<div
+class="option-card"
+onclick="selectOption('career', '企业老板', this)"
+>
 <div class="icon">💰</div>
 <div class="label">企业老板</div>
 <div class="desc">事业有成,习惯发号施令,在你面前反而收敛</div>
 </div>
-<div class="option-card" onclick="selectOption('career', '自由职业', this)">
+<div
+class="option-card"
+onclick="selectOption('career', '自由职业', this)"
+>
 <div class="icon">🎨</div>
 <div class="label">自由职业</div>
 <div class="desc">时间自由,生活随性,眼神里有一点漫不经心</div>
 </div>
-<div class="option-card" onclick="selectCustomOption('career', this)">
+<div
+class="option-card"
+onclick="selectCustomOption('career', this)"
+>
 <div class="icon">✏️</div>
 <div class="label">自定义</div>
-<input type="text" class="custom-input" placeholder="输入自定义职业" onclick="event.stopPropagation()" data-category="career" />
+<input
+type="text"
+class="custom-input"
+placeholder="输入自定义职业"
+onclick="event.stopPropagation()"
+data-category="career"
+/>
 </div>
 </div>
 <div class="nav-buttons" id="navButtons6">
 <button class="btn btn-prev" onclick="prevPage()">上一步</button>
-<button class="btn btn-next" id="nextBtn6" onclick="nextPage()" disabled>
+<button
+class="btn btn-next"
+id="nextBtn6"
+onclick="nextPage()"
+disabled
+>
 下一步
 </button>
 </div>
@@ -713,7 +926,12 @@ background: var(--hover-bg);
 </div>
 <div class="nav-buttons" id="navButtons7">
 <button class="btn btn-prev" onclick="prevPage()">上一步</button>
-<button class="btn btn-next" id="nextBtn7" onclick="nextPage()" disabled>
+<button
+class="btn btn-next"
+id="nextBtn7"
+onclick="nextPage()"
+disabled
+>
 下一步
 </button>
 </div>
@@ -722,45 +940,77 @@ background: var(--hover-bg);
 <div class="page-title">过往经历</div>
 <div class="page-desc">他的性经验与秘密</div>
 <div class="options-grid">
-<div class="option-card" onclick="selectOption('pastExperience', '专一型', this)">
+<div
+class="option-card"
+onclick="selectOption('pastExperience', '专一型', this)"
+>
 <div class="icon">🌼</div>
 <div class="label">专一型</div>
 <div class="desc">交往后只和伴侣有过,对其他女性的身体陌生而紧张</div>
 </div>
-<div class="option-card" onclick="selectOption('pastExperience', '普通经历', this)">
+<div
+class="option-card"
+onclick="selectOption('pastExperience', '普通经历', this)"
+>
 <div class="icon">💕</div>
 <div class="label">普通经历</div>
 <div class="desc">有过几段恋爱,性经验一般</div>
 </div>
-<div class="option-card" onclick="selectOption('pastExperience', '经验丰富', this)">
+<div
+class="option-card"
+onclick="selectOption('pastExperience', '经验丰富', this)"
+>
 <div class="icon">🔥</div>
 <div class="label">经验丰富</div>
 <div class="desc">过往有过较多伴侣,懂得撩拨与节奏</div>
 </div>
-<div class="option-card" onclick="selectOption('pastExperience', '曾经动摇', this)">
+<div
+class="option-card"
+onclick="selectOption('pastExperience', '曾经动摇', this)"
+>
 <div class="icon">💔</div>
 <div class="label">曾经动摇</div>
 <div class="desc">曾有过暧昧或一次越界,愧疚至今</div>
 </div>
-<div class="option-card" onclick="selectOption('pastExperience', '久未亲密', this)">
+<div
+class="option-card"
+onclick="selectOption('pastExperience', '久未亲密', this)"
+>
 <div class="icon">🕯️</div>
 <div class="label">久未亲密</div>
 <div class="desc">与伴侣很久没有亲密接触,身体对触碰格外敏感</div>
 </div>
-<div class="option-card" onclick="selectOption('pastExperience', '论坛老手', this)">
+<div
+class="option-card"
+onclick="selectOption('pastExperience', '论坛老手', this)"
+>
 <div class="icon">🎯</div>
 <div class="label">论坛老手</div>
 <div class="desc">长期在论坛活动,熟悉圈内规则与分寸</div>
 </div>
-<div class="option-card" onclick="selectCustomOption('pastExperience', this)">
+<div
+class="option-card"
+onclick="selectCustomOption('pastExperience', this)"
+>
 <div class="icon">✏️</div>
 <div class="label">自定义</div>
-<input type="text" class="custom-input" placeholder="输入自定义经历" onclick="event.stopPropagation()" data-category="pastExperience" />
+<input
+type="text"
+class="custom-input"
+placeholder="输入自定义经历"
+onclick="event.stopPropagation()"
+data-category="pastExperience"
+/>
 </div>
 </div>
 <div class="nav-buttons" id="navButtons8">
 <button class="btn btn-prev" onclick="prevPage()">上一步</button>
-<button class="btn btn-next" id="nextBtn8" onclick="nextPage()" disabled>
+<button
+class="btn btn-next"
+id="nextBtn8"
+onclick="nextPage()"
+disabled
+>
 下一步
 </button>
 </div>
@@ -774,7 +1024,12 @@ background: var(--hover-bg);
 </div>
 <div class="nav-buttons" id="navButtons9">
 <button class="btn btn-prev" onclick="prevPage()">上一步</button>
-<button class="btn btn-next" id="nextBtn9" onclick="nextPage()" disabled>
+<button
+class="btn btn-next"
+id="nextBtn9"
+onclick="nextPage()"
+disabled
+>
 下一步
 </button>
 </div>
@@ -783,45 +1038,77 @@ background: var(--hover-bg);
 <div class="page-title">他的性癖</div>
 <div class="page-desc">他在床上的特殊喜好</div>
 <div class="options-grid">
-<div class="option-card" onclick="selectOption('herKink', '被引导', this)">
+<div
+class="option-card"
+onclick="selectOption('herKink', '被引导', this)"
+>
 <div class="icon">🤲</div>
 <div class="label">被引导</div>
 <div class="desc">习惯被你牵着手走,被逗弄时耳根通红</div>
 </div>
-<div class="option-card" onclick="selectOption('herKink', '主动索取', this)">
+<div
+class="option-card"
+onclick="selectOption('herKink', '主动索取', this)"
+>
 <div class="icon">😈</div>
 <div class="label">主动索取</div>
 <div class="desc">压抑已久,一旦放开就主动而直接</div>
 </div>
-<div class="option-card" onclick="selectOption('herKink', '口舌喜好', this)">
+<div
+class="option-card"
+onclick="selectOption('herKink', '口舌喜好', this)"
+>
 <div class="icon">👄</div>
 <div class="label">口舌喜好</div>
 <div class="desc">享受取悦你的过程,乐于用嘴和舌头让你高潮</div>
 </div>
-<div class="option-card" onclick="selectOption('herKink', '示弱被主导', this)">
+<div
+class="option-card"
+onclick="selectOption('herKink', '示弱被主导', this)"
+>
 <div class="icon">🔗</div>
 <div class="label">示弱被主导</div>
 <div class="desc">平日是支柱,在你面前愿意卸下防备,被你压在身下掌控节奏</div>
 </div>
-<div class="option-card" onclick="selectOption('herKink', '温柔缠绵', this)">
+<div
+class="option-card"
+onclick="selectOption('herKink', '温柔缠绵', this)"
+>
 <div class="icon">💕</div>
 <div class="label">温柔缠绵</div>
 <div class="desc">细水长流,亲吻与爱抚占了大半,喜欢事后的温存</div>
 </div>
-<div class="option-card" onclick="selectOption('herKink', '主导掌控', this)">
+<div
+class="option-card"
+onclick="selectOption('herKink', '主导掌控', this)"
+>
 <div class="icon">👠</div>
 <div class="label">主导掌控</div>
 <div class="desc">喜欢在亲密中占据主导,也会留意你的每一个反应</div>
 </div>
-<div class="option-card" onclick="selectCustomOption('herKink', this)">
+<div
+class="option-card"
+onclick="selectCustomOption('herKink', this)"
+>
 <div class="icon">✏️</div>
 <div class="label">自定义</div>
-<input type="text" class="custom-input" placeholder="输入自定义性癖" onclick="event.stopPropagation()" data-category="herKink" />
+<input
+type="text"
+class="custom-input"
+placeholder="输入自定义性癖"
+onclick="event.stopPropagation()"
+data-category="herKink"
+/>
 </div>
 </div>
 <div class="nav-buttons" id="navButtons10">
 <button class="btn btn-prev" onclick="prevPage()">上一步</button>
-<button class="btn btn-next" id="nextBtn10" onclick="nextPage()" disabled>
+<button
+class="btn btn-next"
+id="nextBtn10"
+onclick="nextPage()"
+disabled
+>
 下一步
 </button>
 </div>
@@ -830,45 +1117,77 @@ background: var(--hover-bg);
 <div class="page-title">你的性癖</div>
 <div class="page-desc">你想要的相处方式</div>
 <div class="options-grid">
-<div class="option-card" onclick="selectOption('myKink', '温柔缠绵', this)">
+<div
+class="option-card"
+onclick="selectOption('myKink', '温柔缠绵', this)"
+>
 <div class="icon">💕</div>
 <div class="label">温柔缠绵</div>
 <div class="desc">细水长流,情欲交融,享受前戏与事后</div>
 </div>
-<div class="option-card" onclick="selectOption('myKink', '主导撩拨', this)">
+<div
+class="option-card"
+onclick="selectOption('myKink', '主导撩拨', this)"
+>
 <div class="icon">👑</div>
 <div class="label">主导撩拨</div>
 <div class="desc">喜欢掌控节奏,看他一步步失去克制</div>
 </div>
-<div class="option-card" onclick="selectOption('myKink', '示弱逗弄', this)">
+<div
+class="option-card"
+onclick="selectOption('myKink', '示弱逗弄', this)"
+>
 <div class="icon">😏</div>
 <div class="label">示弱逗弄</div>
 <div class="desc">以玩笑般的语气点破他的紧张,轻声哄着他</div>
 </div>
-<div class="option-card" onclick="selectOption('myKink', '配合引导', this)">
+<div
+class="option-card"
+onclick="selectOption('myKink', '配合引导', this)"
+>
 <div class="icon">🤝</div>
 <div class="label">配合引导</div>
 <div class="desc">先观察他的状态,再顺着他的节奏靠近</div>
 </div>
-<div class="option-card" onclick="selectOption('myKink', '直白索取', this)">
+<div
+class="option-card"
+onclick="selectOption('myKink', '直白索取', this)"
+>
 <div class="icon">🔥</div>
 <div class="label">直白索取</div>
-<div class="desc">明确说出自己想要什么,也乐于听他说"我想要你"</div>
+<div class="desc">明确说出自己想要什么,也乐于听他说\"我想要你\"</div>
 </div>
-<div class="option-card" onclick="selectOption('myKink', '慢热试探', this)">
+<div
+class="option-card"
+onclick="selectOption('myKink', '慢热试探', this)"
+>
 <div class="icon">🌙</div>
 <div class="label">慢热试探</div>
 <div class="desc">以聊天与暧昧为主,让心动与欲望一点点升温</div>
 </div>
-<div class="option-card" onclick="selectCustomOption('myKink', this)">
+<div
+class="option-card"
+onclick="selectCustomOption('myKink', this)"
+>
 <div class="icon">✏️</div>
 <div class="label">自定义</div>
-<input type="text" class="custom-input" placeholder="输入自定义性癖" onclick="event.stopPropagation()" data-category="myKink" />
+<input
+type="text"
+class="custom-input"
+placeholder="输入自定义性癖"
+onclick="event.stopPropagation()"
+data-category="myKink"
+/>
 </div>
 </div>
 <div class="nav-buttons" id="navButtons11">
 <button class="btn btn-prev" onclick="prevPage()">上一步</button>
-<button class="btn btn-next" id="nextBtn11" onclick="nextPage()" disabled>
+<button
+class="btn btn-next"
+id="nextBtn11"
+onclick="nextPage()"
+disabled
+>
 下一步
 </button>
 </div>
@@ -1170,7 +1489,13 @@ html += `
 <div class="option-card" onclick="selectCustomOption('lifeStatus', this)">
 <div class="icon">✏️</div>
 <div class="label">自定义</div>
-<input type="text" class="custom-input" placeholder="输入自定义状态" onclick="event.stopPropagation()" data-category="lifeStatus" />
+<input
+type="text"
+class="custom-input"
+placeholder="输入自定义状态"
+onclick="event.stopPropagation()"
+data-category="lifeStatus"
+/>
 </div>
 `;
 grid.innerHTML = html;
@@ -1205,7 +1530,13 @@ html += `
 <div class="option-card" onclick="selectCustomOption('maleSetting', this)">
 <div class="icon">✏️</div>
 <div class="label">自定义</div>
-<input type="text" class="custom-input" placeholder="输入自定义设定" onclick="event.stopPropagation()" data-category="maleSetting" />
+<input
+type="text"
+class="custom-input"
+placeholder="输入自定义设定"
+onclick="event.stopPropagation()"
+data-category="maleSetting"
+/>
 </div>
 `;
 grid.innerHTML = html;
@@ -1215,30 +1546,51 @@ btn.disabled = !selections.maleSetting;
 }
 }
 function updateSummary() {
-document.getElementById("summaryRelationshipType").textContent = selections.relationshipType || "-";
-document.getElementById("summaryBody").textContent = selections.body || "-";
-document.getElementById("summaryPersonality").textContent = selections.personality || "-";
-document.getElementById("summaryAge").textContent = selections.age || "-";
-document.getElementById("summaryRelation").textContent = selections.relation || "-";
-document.getElementById("summaryCareer").textContent = selections.career || "-";
-document.getElementById("summaryLifeStatus").textContent = selections.lifeStatus || "-";
-document.getElementById("summaryPastExperience").textContent = selections.pastExperience || "-";
-document.getElementById("summaryMaleSetting").textContent = selections.maleSetting || "-";
-document.getElementById("summaryHerKink").textContent = selections.herKink || "-";
-document.getElementById("summaryMyKink").textContent = selections.myKink || "-";
+document.getElementById("summaryRelationshipType").textContent =
+selections.relationshipType || "-";
+document.getElementById("summaryBody").textContent =
+selections.body || "-";
+document.getElementById("summaryPersonality").textContent =
+selections.personality || "-";
+document.getElementById("summaryAge").textContent =
+selections.age || "-";
+document.getElementById("summaryRelation").textContent =
+selections.relation || "-";
+document.getElementById("summaryCareer").textContent =
+selections.career || "-";
+document.getElementById("summaryLifeStatus").textContent =
+selections.lifeStatus || "-";
+document.getElementById("summaryPastExperience").textContent =
+selections.pastExperience || "-";
+document.getElementById("summaryMaleSetting").textContent =
+selections.maleSetting || "-";
+document.getElementById("summaryHerKink").textContent =
+selections.herKink || "-";
+document.getElementById("summaryMyKink").textContent =
+selections.myKink || "-";
 }
 function updateBottomInfo() {
-document.getElementById("infoRelationshipType").textContent = selections.relationshipType || "-";
-document.getElementById("infoBody").textContent = selections.body || "-";
-document.getElementById("infoPersonality").textContent = selections.personality || "-";
+document.getElementById("infoRelationshipType").textContent =
+selections.relationshipType || "-";
+document.getElementById("infoBody").textContent =
+selections.body || "-";
+document.getElementById("infoPersonality").textContent =
+selections.personality || "-";
 document.getElementById("infoAge").textContent = selections.age || "-";
-document.getElementById("infoRelation").textContent = selections.relation || "-";
-document.getElementById("infoCareer").textContent = selections.career || "-";
-document.getElementById("infoLifeStatus").textContent = selections.lifeStatus || "-";
-document.getElementById("infoPastExperience").textContent = selections.pastExperience || "-";
-document.getElementById("infoMaleSetting").textContent = selections.maleSetting || "-";
-document.getElementById("infoHerKink").textContent = selections.herKink || "-";
-document.getElementById("infoMyKink").textContent = selections.myKink || "-";
+document.getElementById("infoRelation").textContent =
+selections.relation || "-";
+document.getElementById("infoCareer").textContent =
+selections.career || "-";
+document.getElementById("infoLifeStatus").textContent =
+selections.lifeStatus || "-";
+document.getElementById("infoPastExperience").textContent =
+selections.pastExperience || "-";
+document.getElementById("infoMaleSetting").textContent =
+selections.maleSetting || "-";
+document.getElementById("infoHerKink").textContent =
+selections.herKink || "-";
+document.getElementById("infoMyKink").textContent =
+selections.myKink || "-";
 }
 function submitSelection() {
 showInfoModal(
@@ -1246,8 +1598,7 @@ showInfoModal(
 "准备生成内容...<br><br>建议在AI生成完毕后，手动刷新网页以隐藏首楼",
 function () {
 const tagLabel = ["知情在场", "知情报备", "完全放手"].includes(selections.maleSetting) ? "明香" : ["完全不知情", "已察觉苗头", "关系冷淡"].includes(selections.maleSetting) ? "暗香" : "";
-const message = `【开始选择】关系类型是${selections.relationshipType}。我想要遇见一个${selections.body}、${selections.personality}、年龄在${selections.age}、职业是${selections.career}的男人，我和他的关系是${selections.relation}。他的生活状态是${selections.lifeStatus}，他的过往经历是${selections.pastExperience}，伴侣的态度是${selections.maleSetting}。${tagLabel ? `他的关系标注是${tagLabel}。` : ""}他的性癖是${selections.herKink}，我的性癖是${selections.myKink}。
-【系统指令：请立刻生成一条 <post_data> 论坛帖子代码，包含男方的详细招募信息，并附带 200 字的女主浏览反应。禁止直接输出长篇叙事。】`;
+const message = `【开始选择】关系类型是${selections.relationshipType}。我想要遇见一个${selections.body}、${selections.personality}、年龄在${selections.age}、职业是${selections.career}的男人，我和他的关系是${selections.relation}。他的生活状态是${selections.lifeStatus}，他的过往经历是${selections.pastExperience}，伴侣的态度是${selections.maleSetting}。${tagLabel ? `他的关系标注是${tagLabel}。` : ""}他的性癖是${selections.herKink}，我的性癖是${selections.myKink}。严格按照<ansiang_forum_glossary>中的词汇和<realistic_sexual_behavior>的规则，从女主视角生成一段相遇的开始。本次相遇默认全程直播，直播画面经无痕换脸处理，所有在场者都已同意并可随时叫停。开局触发：生成相约帖，请在开场正文中嵌入一条该男性或其伴侣在相约区发布的相约帖，使用<dating_data>格式完整输出，内容与以上关系设定、关系标注、伴侣态度保持一致，并让我在剧情里浏览到这条帖子。除非我明确使用触发词，不要生成其他论坛页面。`;
 const command = `/send ${message} | /trigger`;
 if (typeof triggerSlash === "function") {
 triggerSlash(command);
@@ -1304,7 +1655,8 @@ const modalTitle = modal.querySelector(".modal-title");
 const modalMessage = modal.querySelector(".modal-message");
 const modalButtons = modal.querySelector(".modal-buttons");
 modalTitle.textContent = "确认操作";
-modalMessage.innerHTML = "这将跳过暗香定制流程，直接进入论坛浏览模式。";
+modalMessage.innerHTML =
+"这将跳过暗香定制流程，直接进入论坛浏览模式。";
 modalButtons.innerHTML =
 '<button class="modal-btn modal-btn-cancel" onclick="closeModal()">取消</button><button class="modal-btn modal-btn-confirm" onclick="confirmViewForum()">确认</button>';
 }, 300);
@@ -1313,12 +1665,48 @@ function randomSelection() {
 const options = {
 relationshipType: ["男朋友", "已婚丈夫", "同居伴侣"],
 body: ["高大健壮", "清瘦修长", "微胖敦厚", "精悍紧实", "匀称斯文"],
-personality: ["温柔体贴", "沉稳克制", "内敛腼腆", "幽默风趣", "强势果断", "知性优雅"],
+personality: [
+"温柔体贴",
+"沉稳克制",
+"内敛腼腆",
+"幽默风趣",
+"强势果断",
+"知性优雅",
+],
 age: ["25-30岁", "30-35岁", "35-40岁", "40-45岁", "45岁以上"],
-relation: ["论坛相识", "邻居", "好友伴侣", "上司伴侣", "前男友", "陌生相约", "熟人"],
-career: ["白领精英", "工程师", "医生", "设计师", "企业老板", "自由职业"],
-pastExperience: ["专一型", "普通经历", "经验丰富", "曾经动摇", "久未亲密", "论坛老手"],
-myKink: ["温柔缠绵", "主导撩拨", "示弱逗弄", "配合引导", "直白索取", "慢热试探"],
+relation: [
+"论坛相识",
+"邻居",
+"好友伴侣",
+"上司伴侣",
+"前男友",
+"陌生相约",
+"熟人",
+],
+career: [
+"白领精英",
+"工程师",
+"医生",
+"设计师",
+"企业老板",
+"自由职业",
+],
+pastExperience: [
+"专一型",
+"普通经历",
+"经验丰富",
+"曾经动摇",
+"久未亲密",
+"论坛老手",
+],
+myKink: [
+"温柔缠绵",
+"主导撩拨",
+"示弱逗弄",
+"配合引导",
+"直白索取",
+"慢热试探",
+],
 };
 const personalityBehaviorMap = {
 温柔体贴: { herKink: ["被引导", "口舌喜好"] },
@@ -1329,10 +1717,13 @@ const personalityBehaviorMap = {
 知性优雅: { herKink: ["被引导", "口舌喜好", "温柔缠绵"] },
 };
 Object.keys(options).forEach((key) => {
-selections[key] = options[key][Math.floor(Math.random() * options[key].length)];
+selections[key] =
+options[key][Math.floor(Math.random() * options[key].length)];
 });
 const personality = selections.personality;
-const behaviorMap = personalityBehaviorMap[personality] || personalityBehaviorMap["沉稳克制"];
+const behaviorMap =
+personalityBehaviorMap[personality] ||
+personalityBehaviorMap["沉稳克制"];
 // 伴侣态度与生活状态(明香约七成,暗香约三成)
 const stanceBag = ["知情在场", "知情在场", "知情在场", "知情报备", "知情报备", "知情报备", "完全放手", "完全不知情", "完全不知情", "已察觉苗头"];
 selections.maleSetting = stanceBag[Math.floor(Math.random() * stanceBag.length)];
@@ -1343,7 +1734,8 @@ const lifeStatusPool = mingxiangStances.includes(selections.maleSetting)
 selections.lifeStatus = lifeStatusPool[Math.floor(Math.random() * lifeStatusPool.length)];
 // 他的性癖
 const herKinkOptions = behaviorMap.herKink || ["被引导", "温柔缠绵"];
-selections.herKink = herKinkOptions[Math.floor(Math.random() * herKinkOptions.length)];
+selections.herKink =
+herKinkOptions[Math.floor(Math.random() * herKinkOptions.length)];
 if (selections.herKink === "主导掌控" && Math.random() > 0.5) {
 selections.myKink = "配合引导";
 }
